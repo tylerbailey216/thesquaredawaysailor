@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Squared Away Sailor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A non-official, security-first toolbox and link hub for Navy and Reserve Sailors using personal devices." />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0f18;
+      color: #e5eaf2;
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+    a { color: #66aaff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 0;
+    }
+
+    .site-header {
+      background: #111a2b;
+      padding: 40px 0 30px;
+      text-align: center;
+      border-bottom: 2px solid #1c2b45;
+    }
+    .site-header h1 {
+      font-size: 2.3rem;
+      margin-bottom: 10px;
+      color: #7fb8ff;
+      font-weight: 700;
+    }
+    .tagline {
+      color: #b6c3d9;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .beta-pill {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #1a273e;
+      color: #ffbdbd;
+      border: 1px solid rgba(255, 107, 107, 0.4);
+      white-space: nowrap;
+    }
+
+    nav.top-nav {
+      background: #0f1726;
+      border-bottom: 1px solid #1c2b45;
+    }
+    nav.top-nav .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    nav.top-nav a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      background: #141f33;
+      border: 1px solid #1f304a;
+    }
+    nav.top-nav a:hover {
+      background: #1d2c45;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+      color: #90c4ff;
+      border-bottom: 1px solid #1f304a;
+      padding-bottom: 6px;
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #a7d1ff;
+    }
+    .section-note {
+      color: #9fb4cf;
+      margin-bottom: 20px;
+    }
+
+    .link-grid,
+    .tool-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .link-card,
+    .tool-card {
+      background: #121d30;
+      padding: 18px;
+      border-radius: 10px;
+      border: 1px solid #1c2b45;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+      font-size: 0.95rem;
+    }
+
+    .tags { margin-bottom: 10px; }
+    .tag {
+      display: inline-block;
+      background: #1c2b45;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-right: 5px;
+      font-size: 0.75rem;
+      color: #cdddf1;
+    }
+
+    .tool-card button,
+    .btn {
+      margin-top: 10px;
+      background: #284b7a;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+    .tool-card button:hover,
+    .btn:hover {
+      background: #3569a8;
+    }
+    .btn.secondary {
+      background: #1a273e;
+    }
+    .btn.secondary:hover {
+      background: #243453;
+    }
+
+    #security ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    .disclaimer {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #9aa9c0;
+    }
+    .site-footer {
+      text-align: center;
+      padding: 20px;
+      color: #7e8ba3;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      border-top: 1px solid #1c2b45;
+    }
+
+    .tool-panel {
+      margin-top: 20px;
+      background: #10192a;
+      border-radius: 10px;
+      border: 1px solid #1c2b45;
+      padding: 16px;
+    }
+    .tool-panel h3 {
+      margin-bottom: 10px;
+    }
+    .tool-panel label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+      color: #c7d5eb;
+    }
+    .tool-panel input[type="text"],
+    .tool-panel input[type="number"],
+    .tool-panel textarea,
+    .tool-panel select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #243453;
+      background: #0b1320;
+      color: #e5eaf2;
+      font-size: 0.9rem;
+    }
+    .tool-panel textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .tool-panel-output {
+      margin-top: 12px;
+      padding: 10px;
+      background: #0b1320;
+      border-radius: 8px;
+      border: 1px solid #22324b;
+      font-family: Consolas, Menlo, Monaco, monospace;
+      white-space: pre-wrap;
+      font-size: 0.9rem;
+    }
+
+    .tool-subgrid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      margin-top: 10px;
+    }
+
+    .checklist-list {
+      margin-top: 10px;
+      list-style: none;
+    }
+    .checklist-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .checklist-list input[type="checkbox"] {
+      transform: scale(1.1);
+    }
+    .checklist-list span {
+      flex: 1;
+    }
+    .tiny-note {
+      font-size: 0.78rem;
+      color: #92a5c2;
+      margin-top: 6px;
+    }
+
+    details.tiny-note {
+      margin-top: 4px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: #0c1728;
+      border: 1px dashed #253654;
+    }
+    details.tiny-note summary {
+      cursor: pointer;
+      list-style: none;
+    }
+    details.tiny-note summary::marker {
+      content: "";
+    }
+    details.tiny-note summary::before {
+      content: "ⓘ ";
+      margin-right: 4px;
+      opacity: 0.8;
+    }
+    details.tiny-note ul {
+      margin-top: 6px;
+      padding-left: 18px;
+      font-size: 0.78rem;
+      color: #a5b6d2;
+    }
+
+    /* About / donations */
+    .about-text {
+      color: #c2d0e7;
+      font-size: 0.95rem;
+    }
+    .donation-links {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .donation-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      background: linear-gradient(135deg, #182741, #1f3354);
+      border: 1px solid #2d4a7b;
+      color: #e5f0ff;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.32);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .donation-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+      border-color: #4e7cd1;
+      text-decoration: none;
+    }
+    .donation-card .app-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #f5f8ff;
+      box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.12), 0 6px 14px rgba(0, 0, 0, 0.35);
+      flex-shrink: 0;
+    }
+    .app-icon.linkedin {
+      background: linear-gradient(145deg, #0e76a8, #0b5c85);
+    }
+    .app-icon.cashapp {
+      background: linear-gradient(145deg, #18c46f, #0e9a50);
+    }
+    .app-icon.paypal {
+      background: linear-gradient(145deg, #1c4db3, #0e3a89);
+    }
+    .donation-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .donation-main {
+      font-weight: 700;
+      color: #eaf3ff;
+    }
+    .donation-sub {
+      font-size: 0.85rem;
+      color: #b7c9e8;
+    }
+    .about-text small {
+      display: block;
+      margin-top: 6px;
+      color: #9aa9c0;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .site-header h1 { font-size: 1.8rem; }
+      .beta-pill {
+        margin-top: 10px;
+        font-size: 0.7rem;
+        max-width: 100%;
+        white-space: normal;
+      }
+      nav.top-nav .wrap { padding: 10px 0; }
+      nav.top-nav a { font-size: 0.8rem; padding: 6px 10px; }
+      .donation-links {
+        grid-template-columns: 1fr;
+      }
+      .donation-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>The Squared Away Sailor</h1>
+      <p class="tagline">
+        A secure helper hub for Sailors using personal devices.<br>
+        Not an official DoD or U.S. Navy website.
+      </p>
+      <div class="beta-pill">
+        Beta · Personal project · Not official
+      </div>
+    </div>
+  </header>
+
+  <nav class="top-nav">
+    <div class="wrap">
+      <a href="#quick-links">Official Links</a>
+      <a href="#how-to-use">How it works</a>
+      <a href="#doc-tools">Document</a>
+      <a href="#readiness-tools">Readiness</a>
+      <a href="#career-tools">Career</a>
+      <a href="#comm-tools">Comms</a>
+      <a href="#about">About</a>
+      <a href="#security">Security</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <!-- QUICK LINKS -->
+    <section id="quick-links">
+      <h2>Quick Links to Official Navy & DoD Sites</h2>
+      <p class="section-note">
+        These links send you to real .mil / official systems. You’ll still use your CAC and usual logins there.
+      </p>
+
+      <div class="link-grid">
+        <article class="link-card">
+          <h3>MyNavy Portal (MNP)</h3>
+          <p>Hub for NSIPS, personnel, career tools, advancement, and more.</p>
+          <p class="tags"><span class="tag">CAC Required</span> <span class="tag">Best on Desktop</span></p>
+          <a href="https://my.navy.mil" target="_blank" rel="noopener noreferrer">Open MyNavy Portal</a>
+        </article>
+
+        <article class="link-card">
+          <h3>NROWS</h3>
+          <p>Submit, review, and manage Navy Reserve orders and travel.</p>
+          <p class="tags"><span class="tag">CAC Required</span></p>
+          <a href="https://private.nrows.navy.mil" target="_blank" rel="noopener noreferrer">Open NROWS</a>
+        </article>
+
+        <article class="link-card">
+          <h3>DTS Travel</h3>
+          <p>Book travel, upload receipts, and submit vouchers.</p>
+          <p class="tags"><span class="tag">CAC Required</span></p>
+          <a href="https://dtsportal.dod.mil" target="_blank" rel="noopener noreferrer">Open DTS</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- HOW TO USE -->
+    <section id="how-to-use">
+      <h2>How to Use This Site</h2>
+      <p class="section-note">
+        Think of this as a “helper toolkit” that sits next to your official Navy/DoD systems. It doesn’t replace anything – it just makes the admin grind a little easier.
+      </p>
+      <ol style="margin-left: 20px; color:#c2d0e7; font-size:0.95rem;">
+        <li style="margin-bottom:6px;">
+          <strong>Pick what you’re working on.</strong>
+          Need to clean eval bullets? Prep orders? Write a request? Use the <em>Document Tools</em>, <em>Readiness</em>, <em>Career</em>, or <em>Comms</em> sections.
+        </li>
+        <li style="margin-bottom:6px;">
+          <strong>Do the prep work here.</strong>
+          Draft text, build checklists, format awards, merge PDFs, or estimate points – all in your browser.
+        </li>
+        <li style="margin-bottom:6px;">
+          <strong>Copy + paste into the real system.</strong>
+          When it looks good, copy the output and paste it into NSIPS, NROWS, DTS, emails, Word/Adobe forms, etc.
+        </li>
+        <li style="margin-bottom:6px;">
+          <strong>Keep security in mind.</strong>
+          No accounts, no cloud storage, no backend. Still: don’t use this for classified docs or super PII-heavy packets if you can avoid it.
+        </li>
+        <li>
+          <strong>Double-check everything.</strong>
+          This is a personal helper, not policy. Always follow current instructions, your NOSC, and your chain of command.
+        </li>
+      </ol>
+    </section>
+
+    <!-- DOCUMENT TOOLS -->
+    <section id="doc-tools">
+      <h2>Document & Admin Tools</h2>
+      <p class="section-note">
+        These tools help you clean text, prep documents, and organize admin work. Everything runs locally in your browser.
+      </p>
+
+      <div class="tool-grid">
+        <article class="tool-card">
+          <h3>Text Cleaner & Formatter</h3>
+          <p>Clean up eval bullets, award write-ups, and email drafts. Strip weird formatting from copy/paste.</p>
+          <button onclick="showPanel('text-cleaner-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>Simple PDF Helper</h3>
+          <p>Merge PDFs, extract pages, and convert images (JPG/PNG) into a single PDF. Files never leave your browser.</p>
+          <button onclick="showPanel('pdf-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>Award Write-Up Formatter</h3>
+          <p>Clean and format award text blocks with line-length hints and bullet options.</p>
+          <button onclick="showPanel('award-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>1306 Request Builder</h3>
+          <p>Guided questions that output a ready-to-paste request template or email body.</p>
+          <button onclick="showPanel('req1306-panel')">Open Tool</button>
+        </article>
+      </div>
+
+      <!-- Text Cleaner Panel -->
+      <div id="text-cleaner-panel" class="tool-panel" style="display:none;">
+        <h3>Text Cleaner & Formatter</h3>
+        <p class="tiny-note">
+          Your text stays in this browser tab only. Great for cleaning eval bullets or award text before pasting into official systems.
+        </p>
+
+        <label for="textInput">Paste your text here</label>
+        <textarea id="textInput" placeholder="Paste text from Word, Outlook, or anywhere else..."></textarea>
+
+        <div class="tool-subgrid">
+          <button class="btn secondary" onclick="cleanText('trim')">Trim spaces</button>
+          <button class="btn secondary" onclick="cleanText('collapseSpaces')">Collapse spaces</button>
+          <button class="btn secondary" onclick="cleanText('collapseLines')">Collapse blank lines</button>
+          <button class="btn secondary" onclick="cleanText('upper')">UPPERCASE</button>
+          <button class="btn secondary" onclick="cleanText('lower')">lowercase</button>
+          <button class="btn secondary" onclick="cleanText('sentence')">Sentence case</button>
+        </div>
+
+        <button class="btn" onclick="copyCleanedText()">Copy Cleaned Text</button>
+
+        <div class="tool-panel-output" id="textOutput"></div>
+        <p class="tiny-note" id="textStats"></p>
+      </div>
+
+      <!-- PDF Helper Panel -->
+      <div id="pdf-panel" class="tool-panel" style="display:none;">
+        <h3>Simple PDF Helper</h3>
+        <p class="tiny-note">
+          All PDF work happens in your browser only. Files are not uploaded to any server.
+        </p>
+
+        <!-- PDF safety tips dropdown -->
+        <details class="tiny-note">
+          <summary>PDF safety tips (read this first)</summary>
+          <ul>
+            <li>Don’t use this with classified documents of any kind.</li>
+            <li>Avoid full SSNs, DoD IDs, medical records, or PII-heavy packets if you can.</li>
+            <li>If you must handle sensitive docs, use a trusted, up-to-date browser on a device you control.</li>
+            <li>Always submit final paperwork through official .mil systems, not this site.</li>
+          </ul>
+        </details>
+
+        <h4 style="margin-top:8px;">Merge PDFs</h4>
+        <label for="pdfMergeInput">Select two or more PDFs to merge</label>
+        <input id="pdfMergeInput" type="file" accept="application/pdf" multiple />
+
+        <label for="pdfMergeName">Merged filename (optional)</label>
+        <input id="pdfMergeName" type="text" placeholder="Example: weekend_package.pdf" />
+
+        <button class="btn" style="margin-top:8px;" onclick="mergePdfs()">Merge PDFs → Download</button>
+
+        <hr style="margin:16px 0; border-color:#1c2b45;">
+
+        <h4>Extract Pages from a PDF</h4>
+        <p class="tiny-note">
+          Upload one PDF, then choose pages like <code>1-3</code>, <code>2,4,6</code>, or <code>1-2,5</code>.
+        </p>
+        <label for="pdfExtractInput">Select a single PDF</label>
+        <input id="pdfExtractInput" type="file" accept="application/pdf" />
+
+        <label for="pdfExtractRange">Page range</label>
+        <input id="pdfExtractRange" type="text" placeholder="Example: 1-3,5" />
+
+        <label for="pdfExtractName">Extracted filename (optional)</label>
+        <input id="pdfExtractName" type="text" placeholder="Example: orders_pages_1-3.pdf" />
+
+        <button class="btn" style="margin-top:8px;" onclick="extractPages()">Extract Pages → Download</button>
+
+        <hr style="margin:16px 0; border-color:#1c2b45;">
+
+        <h4>Images → PDF</h4>
+        <p class="tiny-note">
+          Turn one or more images (JPG/PNG) into a single PDF. Each image becomes its own page.
+        </p>
+        <label for="imgToPdfInput">Select one or more images</label>
+        <input id="imgToPdfInput" type="file" accept="image/*" multiple />
+
+        <label for="imgPdfName">Image PDF filename (optional)</label>
+        <input id="imgPdfName" type="text" placeholder="Example: signed_docs_bundle.pdf" />
+
+        <button class="btn" style="margin-top:8px;" onclick="imagesToPdf()">Images to PDF → Download</button>
+
+        <div id="pdfOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Award Formatter Panel -->
+      <div id="award-panel" class="tool-panel" style="display:none;">
+        <h3>Award Write-Up Formatter</h3>
+        <p class="tiny-note">
+          Helps you tidy up award text. This is a helper only – always follow your command’s format and instructions.
+        </p>
+
+        <label for="awardInput">Paste raw award text</label>
+        <textarea id="awardInput" placeholder="Paste award citation or bullets here..."></textarea>
+
+        <label for="awardLineLen">Target line length (characters, hint only)</label>
+        <input id="awardLineLen" type="number" min="40" max="120" value="80" />
+
+        <label for="awardBulletStyle">Bullet style</label>
+        <select id="awardBulletStyle">
+          <option value="">None (keep as-is)</option>
+          <option value="dash">- Dash bullets</option>
+          <option value="star">* Star bullets</option>
+          <option value="dot">• Dot bullets</option>
+        </select>
+
+        <div class="tool-subgrid">
+          <button class="btn secondary" onclick="formatAward('normalize')">Normalize spacing</button>
+          <button class="btn secondary" onclick="formatAward('upper')">UPPERCASE</button>
+          <button class="btn secondary" onclick="formatAward('sentence')">Sentence case</button>
+        </div>
+
+        <button class="btn" onclick="copyAward()">Copy Formatted Award Text</button>
+        <div class="tool-panel-output" id="awardOutput"></div>
+        <p class="tiny-note" id="awardStats"></p>
+      </div>
+
+      <!-- 1306 Request Builder Panel -->
+      <div id="req1306-panel" class="tool-panel" style="display:none;">
+        <h3>1306 Request Builder</h3>
+        <p class="tiny-note">
+          This builds a draft email / remarks block you can paste into a 1306 or email. Not official wording – adjust for your chain of command.
+        </p>
+
+        <label for="rName">Your name (rate/rank + name)</label>
+        <input id="rName" type="text" placeholder="Example: IT2 John Q. Sailor, USN" />
+
+        <label for="rBillet">Unit / billet</label>
+        <input id="rBillet" type="text" placeholder="Example: NR XYZ UNIT / IT2" />
+
+        <label for="rUIC">UIC (optional)</label>
+        <input id="rUIC" type="text" placeholder="Example: 12345" />
+
+        <label for="rType">Type of request</label>
+        <select id="rType">
+          <option value="adt">ADT / AT orders</option>
+          <option value="reschedule">Drill reschedule / RMP</option>
+          <option value="crossassign">Cross-assignment</option>
+          <option value="detach">Detachment / reassignment</option>
+          <option value="other">Other / general request</option>
+        </select>
+
+        <label for="rDates">Dates or period (if applicable)</label>
+        <input id="rDates" type="text" placeholder="Example: 01-15 AUG 2025" />
+
+        <label for="rJust">Justification (plain language)</label>
+        <textarea id="rJust" placeholder="Explain the who/what/where/when/why in simple terms..."></textarea>
+
+        <label for="rPOC">POC info (optional)</label>
+        <input id="rPOC" type="text" placeholder="Example: NOSC POC, gaining command POC, phone/email" />
+
+        <div style="margin-top:10px;">
+          <button class="btn" onclick="build1306()">Generate Draft Text</button>
+          <button class="btn secondary" onclick="copy1306()">Copy Draft</button>
+        </div>
+
+        <div id="req1306Output" class="tool-panel-output"></div>
+      </div>
+    </section>
+
+    <!-- READINESS TOOLS -->
+    <section id="readiness-tools">
+      <h2>Readiness & Drill Tools</h2>
+      <p class="section-note">
+        Help you show up squared away for drill, AT/ADT, PFA, and readiness checks. No data is sent or stored on a server.
+      </p>
+
+      <div class="tool-grid">
+        <article class="tool-card">
+          <h3>Drill Weekend Checklist</h3>
+          <p>Build and save a simple checklist in your browser so you don't forget anything for drill.</p>
+          <button onclick="showPanel('checklist-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>PFA Prep Helper</h3>
+          <p>Quick guidance based on your event focus. Not an official score calculator.</p>
+          <button onclick="showPanel('pfa-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>IMR Explainer</h3>
+          <p>Plain-language breakdown of IMR categories and what to do next for red/amber items.</p>
+          <button onclick="showPanel('imr-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>“What Do I Need For…?” Wizard</h3>
+          <p>Simple decision helper for AT/ADT, travel, medical screening, and more.</p>
+          <button onclick="showPanel('wizard-panel')">Open Tool</button>
+        </article>
+      </div>
+
+      <!-- Checklist Panel -->
+      <div id="checklist-panel" class="tool-panel" style="display:none;">
+        <h3>Drill Weekend Checklist</h3>
+        <p class="tiny-note">
+          Checklist is saved in your browser only (localStorage). You can clear or edit it anytime.
+        </p>
+
+        <label for="newItemInput">Add checklist item</label>
+        <div style="display:flex; gap:8px; margin-bottom:8px;">
+          <input id="newItemInput" type="text" placeholder="Example: CAC + reader, uniform, orders..." />
+          <button class="btn" onclick="addChecklistItem()">Add</button>
+        </div>
+
+        <ul id="checklistList" class="checklist-list"></ul>
+
+        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="btn secondary" onclick="resetChecklist()">Clear All Items</button>
+          <button class="btn secondary" onclick="exportChecklist()">Copy Checklist Text</button>
+        </div>
+      </div>
+
+      <!-- PFA Prep Panel -->
+      <div id="pfa-panel" class="tool-panel" style="display:none;">
+        <h3>PFA Prep Helper</h3>
+        <p class="tiny-note">
+          Not an official scoring tool. This is just simple planning guidance – always follow current NAVADMIN and your CFL.
+        </p>
+
+        <label for="pfaFocus">Main focus</label>
+        <select id="pfaFocus">
+          <option value="run">1.5-mile run / cardio</option>
+          <option value="planks">Planks / core</option>
+          <option value="pushups">Push-ups</option>
+          <option value="overall">Overall readiness</option>
+        </select>
+
+        <label for="pfaWeeks">Weeks until PFA (estimate)</label>
+        <input id="pfaWeeks" type="number" min="1" max="52" value="6" />
+
+        <button class="btn" style="margin-top:10px;" onclick="buildPfaPlan()">Generate Suggestions</button>
+        <div id="pfaOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- IMR Explainer Panel -->
+      <div id="imr-panel" class="tool-panel" style="display:none;">
+        <h3>IMR Explainer</h3>
+        <p class="tiny-note">
+          This is general guidance only. Always follow direction from medical and your NOSC staff.
+        </p>
+
+        <label for="imrArea">IMR area</label>
+        <select id="imrArea" onchange="showImrInfo()">
+          <option value="">Select an area...</option>
+          <option value="dental">Dental</option>
+          <option value="immunizations">Immunizations</option>
+          <option value="pha">PHA (Periodic Health Assessment)</option>
+          <option value="labs">Labs / screenings</option>
+          <option value="deployment">Deployment-limiting conditions</option>
+        </select>
+
+        <div id="imrOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Readiness Wizard Panel -->
+      <div id="wizard-panel" class="tool-panel" style="display:none;">
+        <h3>“What Do I Need For…?” Wizard</h3>
+        <p class="tiny-note">
+          Quick, non-official checklist ideas. Always confirm with your chain of command and current guidance.
+        </p>
+
+        <label for="wizScenario">Scenario</label>
+        <select id="wizScenario" onchange="runWizard()">
+          <option value="">Pick a scenario...</option>
+          <option value="drill">Normal drill weekend</option>
+          <option value="at">AT / ADT orders</option>
+          <option value="travel">Travel with DTS</option>
+          <option value="medical">Medical screening / PHA day</option>
+          <option value="mobilization">Pre-mobilization screening</option>
+        </select>
+
+        <div id="wizOutput" class="tool-panel-output"></div>
+      </div>
+    </section>
+
+    <!-- CAREER TOOLS -->
+    <section id="career-tools">
+      <h2>Career & Advancement Tools</h2>
+      <p class="section-note">
+        These helpers give rough guidance and templates. Always confirm with current instructions and your chain of command.
+      </p>
+
+      <div class="tool-grid">
+        <article class="tool-card">
+          <h3>Advancement Eligibility Helper</h3>
+          <p>Quick, non-official checklist for whether you look “in the zone” to advance.</p>
+          <button onclick="showPanel('adv-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>Points Estimator</h3>
+          <p>Rough estimate of a good-year point total based on drills and active duty days.</p>
+          <button onclick="showPanel('points-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>Rate Roadmap Viewer</h3>
+          <p>Very simple, non-official view of suggested milestones for a few common ratings.</p>
+          <button onclick="showPanel('roadmap-panel')">Open Tool</button>
+        </article>
+      </div>
+
+      <!-- Advancement Panel -->
+      <div id="adv-panel" class="tool-panel" style="display:none;">
+        <h3>Advancement Eligibility Helper</h3>
+        <p class="tiny-note">
+          This is a rough helper only. Official eligibility comes from NAVADMINs, exam cycles, and your admin team.
+        </p>
+
+        <label for="advRate">Rating</label>
+        <input id="advRate" type="text" placeholder="Example: IT, MA, HM, LS..." />
+
+        <label for="advPaygrade">Current paygrade</label>
+        <select id="advPaygrade">
+          <option value="E3">E-3</option>
+          <option value="E4">E-4</option>
+          <option value="E5">E-5</option>
+          <option value="E6">E-6</option>
+        </select>
+
+        <label for="advTIR">Time in rate (months)</label>
+        <input id="advTIR" type="number" min="0" max="240" value="12" />
+
+        <label>Checklist</label>
+        <div>
+          <label><input type="checkbox" id="advPmk" /> PMK-EE completed for next paygrade</label><br/>
+          <label><input type="checkbox" id="advPfa" /> Recent PFA passed / in good standing</label><br/>
+          <label><input type="checkbox" id="advEval" /> Latest eval not significant problems</label><br/>
+          <label><input type="checkbox" id="advReqs" /> Required schools/quals for rate completed (if any)</label>
+        </div>
+
+        <button class="btn" style="margin-top:10px;" onclick="buildAdvancement()">Check Likely Status</button>
+        <div id="advOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Points Estimator Panel -->
+      <div id="points-panel" class="tool-panel" style="display:none;">
+        <h3>Points Estimator</h3>
+        <p class="tiny-note">
+          Very rough “good year” helper. Not official. Always verify with your admin/NOSC.
+        </p>
+
+        <label for="ptsDrills">Number of IDT drills this FY</label>
+        <input id="ptsDrills" type="number" min="0" max="120" value="48" />
+
+        <label for="ptsAT">AT / ADT days</label>
+        <input id="ptsAT" type="number" min="0" max="365" value="14" />
+
+        <label for="ptsOtherAD">Other active-duty days (MOB, ADSW, etc.)</label>
+        <input id="ptsOtherAD" type="number" min="0" max="365" value="0" />
+
+        <label for="ptsMembership">Membership points (usually 15 per full good year)</label>
+        <input id="ptsMembership" type="number" min="0" max="365" value="15" />
+
+        <button class="btn" style="margin-top:10px;" onclick="buildPoints()">Estimate Points</button>
+        <div id="pointsOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Rate Roadmap Viewer Panel -->
+      <div id="roadmap-panel" class="tool-panel" style="display:none;">
+        <h3>Rate Roadmap Viewer</h3>
+        <p class="tiny-note">
+          High-level, non-official suggestions for a few example ratings. Always reference official rate roadmaps and talk with your leadership.
+        </p>
+
+        <label for="roadmapRate">Select rating</label>
+        <select id="roadmapRate" onchange="showRoadmap()">
+          <option value="">Choose a rating...</option>
+          <option value="IT">IT – Information Systems Technician</option>
+          <option value="MA">MA – Master-at-Arms</option>
+          <option value="HM">HM – Hospital Corpsman</option>
+          <option value="LS">LS – Logistics Specialist</option>
+          <option value="GM">GM – Gunners Mate</option>
+          <option value="GEN">General Reserve Sailor</option>
+        </select>
+
+        <div id="roadmapOutput" class="tool-panel-output"></div>
+      </div>
+    </section>
+
+    <!-- COMMS TOOLS -->
+    <section id="comm-tools">
+      <h2>Communication Tools</h2>
+      <p class="section-note">
+        Make your emails, signatures, and plain-language explanations more squared away.
+      </p>
+
+      <div class="tool-grid">
+        <article class="tool-card">
+          <h3>Email Tone Polisher</h3>
+          <p>Turn a rough draft email into something more professional, concise, or appreciative.</p>
+          <button onclick="showPanel('emailtone-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>Plain-Language Translator</h3>
+          <p>Simple explanations for common Navy/Reserve acronyms and systems.</p>
+          <button onclick="showPanel('plainlang-panel')">Open Tool</button>
+        </article>
+
+        <article class="tool-card">
+          <h3>Signature Block Generator</h3>
+          <p>Create a clean Navy-style email signature you can paste into Outlook or webmail.</p>
+          <button onclick="showPanel('sig-panel')">Open Tool</button>
+        </article>
+      </div>
+
+      <!-- Email Tone Polisher Panel -->
+      <div id="emailtone-panel" class="tool-panel" style="display:none;">
+        <h3>Email Tone Polisher</h3>
+        <p class="tiny-note">
+          Paste a rough draft and pick how you want it to sound. This is just a helper – always adjust for your chain of command.
+        </p>
+
+        <label for="emailTone">Tone goal</label>
+        <select id="emailTone">
+          <option value="formal">More formal / professional</option>
+          <option value="concise">More concise / to the point</option>
+          <option value="appreciative">More appreciative / respectful</option>
+        </select>
+
+        <label for="emailInput">Rough draft email</label>
+        <textarea id="emailInput" placeholder="Paste your rough email text here..."></textarea>
+
+        <button class="btn" style="margin-top:10px;" onclick="polishEmail()">Polish Email</button>
+        <button class="btn secondary" style="margin-top:10px;" onclick="copyPolishedEmail()">Copy Polished Email</button>
+
+        <div id="emailOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Plain-Language Translator Panel -->
+      <div id="plainlang-panel" class="tool-panel" style="display:none;">
+        <h3>Plain-Language Translator</h3>
+        <p class="tiny-note">
+          Pick a term or type one in to see a simple explanation. This is unofficial and meant to help new Sailors.
+        </p>
+
+        <label for="plainTermSelect">Common term</label>
+        <select id="plainTermSelect" onchange="translatePlainFromSelect()">
+          <option value="">Choose a term...</option>
+          <option value="NOSC">NOSC</option>
+          <option value="NROWS">NROWS</option>
+          <option value="NSIPS">NSIPS</option>
+          <option value="AT">AT</option>
+          <option value="ADT">ADT</option>
+          <option value="IDT">IDT</option>
+          <option value="DTS">DTS</option>
+          <option value="IMR">IMR</option>
+          <option value="PHA">PHA</option>
+          <option value="CAC">CAC</option>
+          <option value="BBD">BBD</option>
+        </select>
+
+        <label for="plainTermInput">Or type your own term/acronym</label>
+        <input id="plainTermInput" type="text" placeholder="Example: PRIMS, FLTMPS, BOL..." />
+
+        <button class="btn" style="margin-top:10px;" onclick="translatePlain()">Translate</button>
+        <div id="plainOutput" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Signature Block Generator Panel -->
+      <div id="sig-panel" class="tool-panel" style="display:none;">
+        <h3>Signature Block Generator</h3>
+        <p class="tiny-note">
+          Fill this out and paste the result into your email client. Nothing is stored.
+        </p>
+
+        <label for="sigName">Name</label>
+        <input id="sigName" type="text" placeholder="Example: IT2(SS) John Q. Sailor, USN" />
+
+        <label for="sigTitle">Role / Title</label>
+        <input id="sigTitle" type="text" placeholder="Example: Information Systems Technician, Navy Reserve" />
+
+        <label for="sigCommand">Command / NOSC</label>
+        <input id="sigCommand" type="text" placeholder="Example: NOSC Cleveland / NR XYZ Unit" />
+
+        <label for="sigPhone">Phone (optional)</label>
+        <input id="sigPhone" type="text" placeholder="Example: (555) 555-5555" />
+
+        <label for="sigEmail">Email (optional)</label>
+        <input id="sigEmail" type="text" placeholder="Example: john.q.sailor.mil@mail.mil" />
+
+        <label for="sigExtra">Extra line (optional)</label>
+        <input id="sigExtra" type="text" placeholder="Example: Mission. People. Readiness." />
+
+        <div style="margin-top:10px;">
+          <button class="btn" onclick="buildSignature()">Generate Signature</button>
+          <button class="btn secondary" onclick="copySignature()">Copy Signature</button>
+        </div>
+
+        <div id="sigOutput" class="tool-panel-output"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT & SUPPORT -->
+    <section id="about">
+      <h2>About the Creator & Supporting This Project</h2>
+      <p class="about-text">
+        The Squared Away Sailor is built and maintained as a personal project by
+        <strong>Garin Bailey</strong>, a former U.S. Navy Seabees veteran and lifelong tech/creative.
+        The goal is simple: give Sailors using personal devices a safer, more organized way to prep
+        their admin work before they jump into the official .mil systems.
+      </p>
+
+      <p class="about-text" style="margin-top:10px;">
+        If this toolbox helps you stay a little more squared away and you’d like to support hosting,
+        updates, and future improvements, you can optionally send a small donation here:
+      </p>
+
+      <div class="donation-links">
+        <a class="donation-card" href="https://www.linkedin.com/in/gbailey216/" target="_blank" rel="noopener noreferrer">
+          <span class="app-icon linkedin" aria-hidden="true">in</span>
+          <span class="donation-copy">
+            <span class="donation-main">Connect on LinkedIn</span>
+            <span class="donation-sub">linkedin.com/in/gbailey216</span>
+          </span>
+        </a>
+        <a class="donation-card" href="https://cash.app/$gbailey216" target="_blank" rel="noopener noreferrer">
+          <span class="app-icon cashapp" aria-hidden="true">$</span>
+          <span class="donation-copy">
+            <span class="donation-main">Donate via Cash App</span>
+            <span class="donation-sub">$gbailey216</span>
+          </span>
+        </a>
+        <a class="donation-card" href="https://paypal.me/garinbailey1" target="_blank" rel="noopener noreferrer">
+          <span class="app-icon paypal" aria-hidden="true">PP</span>
+          <span class="donation-copy">
+            <span class="donation-main">Donate via PayPal</span>
+            <span class="donation-sub">@garinbailey1</span>
+          </span>
+        </a>
+      </div>
+
+      <p class="about-text">
+        <small>
+          Donations are always welcome and much appreciated but never required. Thank you for your support!
+        </small>
+      </p>
+    </section>
+
+    <!-- SECURITY -->
+    <section id="security">
+      <h2>Security & Privacy</h2>
+      <ul>
+        <li>No accounts, no logins, no server-side storage.</li>
+        <li>Your documents and text stay in this browser tab.</li>
+        <li>No PII, SSN, DoD ID, rank, or unit info is required for tools to work.</li>
+        <li>Always submit official documents through real .mil systems.</li>
+        <li>Do not use this site for classified or highly sensitive material.</li>
+      </ul>
+      <p class="disclaimer">
+        The Squared Away Sailor is a personal project and is not endorsed by the Department of Defense or the U.S. Navy.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>&copy; <span id="year"></span> The Squared Away Sailor. Built for Sailors, by a former Sailor.</small>
+  </footer>
+
+  <!-- PDF-lib (client-side PDF library) -->
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function showPanel(id) {
+      const panels = [
+        "text-cleaner-panel",
+        "pdf-panel",
+        "award-panel",
+        "req1306-panel",
+        "checklist-panel",
+        "pfa-panel",
+        "imr-panel",
+        "wizard-panel",
+        "adv-panel",
+        "points-panel",
+        "roadmap-panel",
+        "emailtone-panel",
+        "plainlang-panel",
+        "sig-panel"
+      ];
+      panels.forEach(pid => {
+        const el = document.getElementById(pid);
+        if (!el) return;
+        el.style.display = (pid === id) ? "block" : "none";
+      });
+      const el = document.getElementById(id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        window.scrollTo({
+          top: window.scrollY + rect.top - 80,
+          behavior: "smooth"
+        });
+      }
+    }
+
+    /* ---------- TEXT CLEANER ---------- */
+    function cleanText(mode) {
+      const inputEl = document.getElementById("textInput");
+      const outputEl = document.getElementById("textOutput");
+      const statsEl = document.getElementById("textStats");
+
+      let text = inputEl.value || "";
+
+      if (mode === "trim") {
+        text = text.split("\n").map(line => line.trimEnd()).join("\n").trim();
+      } else if (mode === "collapseSpaces") {
+        text = text.replace(/[ \t]+/g, " ");
+      } else if (mode === "collapseLines") {
+        text = text.replace(/\n{3,}/g, "\n\n");
+      } else if (mode === "upper") {
+        text = text.toUpperCase();
+      } else if (mode === "lower") {
+        text = text.toLowerCase();
+      } else if (mode === "sentence") {
+        text = text.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+      }
+
+      inputEl.value = text;
+      outputEl.textContent = text;
+
+      const charCount = text.length;
+      const lineCount = text ? text.split("\n").length : 0;
+      statsEl.textContent = `Characters: ${charCount} | Lines: ${lineCount}`;
+    }
+
+    function copyCleanedText() {
+      const text = document.getElementById("textInput").value || "";
+      if (!text) {
+        alert("Nothing to copy yet. Paste or type some text first.");
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Cleaned text copied to clipboard.");
+      }).catch(() => {
+        alert("Unable to copy automatically. You can select and copy manually.");
+      });
+    }
+
+    /* ---------- FILENAME HELPER ---------- */
+    function getPdfFilename(inputId, defaultName) {
+      const raw = (document.getElementById(inputId)?.value || "").trim();
+      if (!raw) return defaultName;
+      if (raw.toLowerCase().endsWith(".pdf")) return raw;
+      return raw + ".pdf";
+    }
+
+    /* ---------- PDF HELPER (MERGE + EXTRACT + IMAGES->PDF) ---------- */
+    async function mergePdfs() {
+      const input = document.getElementById("pdfMergeInput");
+      const out = document.getElementById("pdfOutput");
+      out.textContent = "";
+
+      if (!input.files || input.files.length < 2) {
+        out.textContent = "Please select at least two PDF files to merge.";
+        return;
+      }
+
+      const filename = getPdfFilename("pdfMergeName", "merged.pdf");
+
+      try {
+        const { PDFDocument } = PDFLib;
+        const mergedPdf = await PDFDocument.create();
+
+        for (const file of Array.from(input.files)) {
+          const bytes = await file.arrayBuffer();
+          const pdf = await PDFDocument.load(bytes);
+          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+          copiedPages.forEach(page => mergedPdf.addPage(page));
+        }
+
+        const mergedBytes = await mergedPdf.save();
+        const blob = new Blob([mergedBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        out.textContent = `Merged PDF downloaded as ${filename}.`;
+      } catch (err) {
+        console.error(err);
+        out.textContent = "There was a problem merging the PDFs. Make sure the files are valid PDFs.";
+      }
+    }
+
+    function parsePageRange(rangeStr, maxPages) {
+      const pages = new Set();
+      const parts = rangeStr.split(",");
+      for (let part of parts) {
+        part = part.trim();
+        if (!part) continue;
+        if (part.includes("-")) {
+          const [startStr, endStr] = part.split("-").map(s => s.trim());
+          const start = parseInt(startStr, 10);
+          const end = parseInt(endStr, 10);
+          if (isNaN(start) || isNaN(end)) continue;
+          for (let p = start; p <= end; p++) {
+            if (p >= 1 && p <= maxPages) pages.add(p - 1);
+          }
+        } else {
+          const num = parseInt(part, 10);
+          if (!isNaN(num) && num >= 1 && num <= maxPages) {
+            pages.add(num - 1);
+          }
+        }
+      }
+      return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    async function extractPages() {
+      const fileInput = document.getElementById("pdfExtractInput");
+      const rangeInput = document.getElementById("pdfExtractRange");
+      const out = document.getElementById("pdfOutput");
+      out.textContent = "";
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        out.textContent = "Please select a PDF file first.";
+        return;
+      }
+
+      const rangeStr = (rangeInput.value || "").trim();
+      if (!rangeStr) {
+        out.textContent = "Please enter a page range (e.g., 1-3,5).";
+        return;
+      }
+
+      const filename = getPdfFilename("pdfExtractName", "extracted_pages.pdf");
+
+      try {
+        const { PDFDocument } = PDFLib;
+        const bytes = await fileInput.files[0].arrayBuffer();
+        const srcPdf = await PDFDocument.load(bytes);
+        const totalPages = srcPdf.getPageCount();
+
+        const pagesToCopy = parsePageRange(rangeStr, totalPages);
+        if (!pagesToCopy.length) {
+          out.textContent = "No valid pages found in that range. Remember pages start at 1.";
+          return;
+        }
+
+        const newPdf = await PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(srcPdf, pagesToCopy);
+        copiedPages.forEach(page => newPdf.addPage(page));
+
+        const newBytes = await newPdf.save();
+        const blob = new Blob([newBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        out.textContent = `Extracted pages downloaded as ${filename}.`;
+      } catch (err) {
+        console.error(err);
+        out.textContent = "There was a problem extracting pages. Make sure the file is a valid PDF and the page range is correct.";
+      }
+    }
+
+    async function imagesToPdf() {
+      const input = document.getElementById("imgToPdfInput");
+      const out = document.getElementById("pdfOutput");
+      out.textContent = "";
+
+      if (!input.files || input.files.length === 0) {
+        out.textContent = "Please select one or more images.";
+        return;
+      }
+
+      const filename = getPdfFilename("imgPdfName", "images.pdf");
+
+      try {
+        const { PDFDocument } = PDFLib;
+        const pdfDoc = await PDFDocument.create();
+
+        for (const file of Array.from(input.files)) {
+          const bytes = await file.arrayBuffer();
+          const type = file.type || "";
+
+          let embedded;
+          if (type.toLowerCase().includes("png")) {
+            embedded = await pdfDoc.embedPng(bytes);
+          } else {
+            embedded = await pdfDoc.embedJpg(bytes);
+          }
+
+          const dims = embedded.scale(1);
+          const page = pdfDoc.addPage([dims.width, dims.height]);
+          page.drawImage(embedded, {
+            x: 0,
+            y: 0,
+            width: dims.width,
+            height: dims.height
+          });
+        }
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        out.textContent = `Image PDF downloaded as ${filename}.`;
+      } catch (err) {
+        console.error(err);
+        out.textContent = "There was a problem creating the PDF from images. Make sure the files are valid JPG/PNG images.";
+      }
+    }
+
+    /* ---------- AWARD FORMATTER ---------- */
+    function formatAward(mode) {
+      const inputEl = document.getElementById("awardInput");
+      const outputEl = document.getElementById("awardOutput");
+      const statsEl = document.getElementById("awardStats");
+      const bulletStyle = document.getElementById("awardBulletStyle").value;
+      const targetLen = parseInt(document.getElementById("awardLineLen").value, 10) || 80;
+
+      let text = inputEl.value || "";
+
+      if (mode === "normalize" || mode === "upper" || mode === "sentence") {
+        text = text.replace(/\r\n/g, "\n");
+        text = text.split("\n").map(line => line.trim()).join("\n");
+        text = text.replace(/[ \t]+/g, " ");
+        text = text.replace(/\n{3,}/g, "\n\n");
+      }
+
+      if (mode === "upper") {
+        text = text.toUpperCase();
+      } else if (mode === "sentence") {
+        text = text.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+      }
+
+      if (bulletStyle) {
+        const lines = text.split("\n").map(line => {
+          if (!line.trim()) return "";
+          let bulletChar = "-";
+          if (bulletStyle === "star") bulletChar = "*";
+          if (bulletStyle === "dot") bulletChar = "•";
+          return `${bulletChar} ${line.trim()}`;
+        });
+        text = lines.join("\n");
+      }
+
+      outputEl.textContent = text;
+
+      const lines = text ? text.split("\n") : [];
+      const longest = lines.reduce((max, l) => Math.max(max, l.length), 0);
+      statsEl.textContent = `Lines: ${lines.length} | Longest line: ${longest} chars (target ~${targetLen})`;
+    }
+
+    function copyAward() {
+      const text = document.getElementById("awardOutput").textContent || "";
+      if (!text) {
+        alert("Format the award text first.");
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Formatted award text copied to clipboard.");
+      }).catch(() => {
+        alert("Unable to copy automatically. You can select and copy manually.");
+      });
+    }
+
+    /* ---------- 1306 REQUEST BUILDER ---------- */
+    function build1306() {
+      const name = (document.getElementById("rName").value || "").trim();
+      const billet = (document.getElementById("rBillet").value || "").trim();
+      const uic = (document.getElementById("rUIC").value || "").trim();
+      const type = document.getElementById("rType").value;
+      const dates = (document.getElementById("rDates").value || "").trim();
+      const just = (document.getElementById("rJust").value || "").trim();
+      const poc = (document.getElementById("rPOC").value || "").trim();
+
+      if (!name || !billet || !just) {
+        alert("Please fill at least your name, unit/billet, and justification.");
+        return;
+      }
+
+      let subjectType = "Request";
+      if (type === "adt") subjectType = "Request for AT/ADT Orders";
+      else if (type === "reschedule") subjectType = "Request for Drill Reschedule / RMP";
+      else if (type === "crossassign") subjectType = "Request for Cross-Assignment";
+      else if (type === "detach") subjectType = "Request for Detachment / Reassignment";
+
+      const today = new Date().toLocaleDateString();
+
+      let body = "";
+      body += `Subject: ${subjectType}\n\n`;
+      body += `1. Member: ${name}\n`;
+      body += `2. Unit/Billet: ${billet}`;
+      if (uic) body += ` (UIC: ${uic})`;
+      body += `\n`;
+      if (dates) body += `3. Requested dates/period: ${dates}\n`;
+      body += `4. Justification:\n   ${just}\n\n`;
+      if (poc) {
+        body += `5. POC / coordination info:\n   ${poc}\n\n`;
+      }
+      body += `6. Member is available to provide additional documentation or clarification as required.\n\n`;
+      body += `Very respectfully,\n`;
+      body += `${name}\n`;
+      body += `${today}\n`;
+
+      document.getElementById("req1306Output").textContent = body;
+    }
+
+    function copy1306() {
+      const text = document.getElementById("req1306Output").textContent || "";
+      if (!text) {
+        alert("Generate the draft text first.");
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Draft text copied to clipboard.");
+      }).catch(() => {
+        alert("Unable to copy automatically. You can select and copy manually.");
+      });
+    }
+
+    /* ---------- CHECKLIST (LOCALSTORAGE) ---------- */
+    const CHECKLIST_KEY = "squaredAwayChecklist";
+
+    function loadChecklist() {
+      const listEl = document.getElementById("checklistList");
+      if (!listEl) return;
+
+      listEl.innerHTML = "";
+      let items = [];
+      try {
+        const stored = localStorage.getItem(CHECKLIST_KEY);
+        if (stored) {
+          items = JSON.parse(stored);
+        } else {
+          items = [
+            { text: "CAC + reader (if needed)", checked: false },
+            { text: "Uniform of the day (complete)", checked: false },
+            { text: "Orders / muster info", checked: false },
+            { text: "Notebook + pen", checked: false }
+          ];
+          localStorage.setItem(CHECKLIST_KEY, JSON.stringify(items));
+        }
+      } catch (e) {
+        items = [];
+      }
+
+      items.forEach((item, index) => {
+        const li = document.createElement("li");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = !!item.checked;
+        checkbox.addEventListener("change", () => toggleChecklistItem(index));
+        const span = document.createElement("span");
+        span.textContent = item.text;
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "✕";
+        delBtn.className = "btn secondary";
+        delBtn.style.padding = "2px 6px";
+        delBtn.style.fontSize = "0.8rem";
+        delBtn.addEventListener("click", () => deleteChecklistItem(index));
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        listEl.appendChild(li);
+      });
+    }
+
+    function getChecklistItems() {
+      let items = [];
+      try {
+        const stored = localStorage.getItem(CHECKLIST_KEY);
+        if (stored) items = JSON.parse(stored);
+      } catch (e) {
+        items = [];
+      }
+      return items;
+    }
+
+    function saveChecklistItems(items) {
+      try {
+        localStorage.setItem(CHECKLIST_KEY, JSON.stringify(items));
+      } catch (e) {}
+      loadChecklist();
+    }
+
+    function addChecklistItem() {
+      const input = document.getElementById("newItemInput");
+      const text = (input.value || "").trim();
+      if (!text) return;
+      const items = getChecklistItems();
+      items.push({ text, checked: false });
+      saveChecklistItems(items);
+      input.value = "";
+    }
+
+    function toggleChecklistItem(index) {
+      const items = getChecklistItems();
+      if (!items[index]) return;
+      items[index].checked = !items[index].checked;
+      saveChecklistItems(items);
+    }
+
+    function deleteChecklistItem(index) {
+      const items = getChecklistItems();
+      items.splice(index, 1);
+      saveChecklistItems(items);
+    }
+
+    function resetChecklist() {
+      if (!confirm("Clear all checklist items?")) return;
+      saveChecklistItems([]);
+    }
+
+    function exportChecklist() {
+      const items = getChecklistItems();
+      if (!items.length) {
+        alert("No checklist items to export.");
+        return;
+      }
+      const lines = items.map(i => `${i.checked ? "[x]" : "[ ]"} ${i.text}`);
+      const text = "Drill Weekend Checklist\n\n" + lines.join("\n");
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Checklist copied to clipboard. You can paste into Notes, email, or a document.");
+      }).catch(() => {
+        alert("Unable to copy automatically. You can screenshot or copy manually from the list.");
+      });
+    }
+
+    /* ---------- PFA PREP HELPER ---------- */
+    function buildPfaPlan() {
+      const focus = document.getElementById("pfaFocus").value;
+      const weeks = parseInt(document.getElementById("pfaWeeks").value, 10) || 6;
+      const out = document.getElementById("pfaOutput");
+
+      let lines = [];
+      lines.push(`PFA Prep Suggestions (${weeks} week plan – not official guidance)\n`);
+
+      if (focus === "run") {
+        lines.push("- Aim for 3–4 cardio sessions per week (run, walk-run, bike, elliptical).");
+        lines.push("- Include 1 interval day (shorter, faster repeats) and 1 longer steady day.");
+        lines.push("- Track distance and time to see progress week to week.");
+      } else if (focus === "planks") {
+        lines.push("- Practice planks 3–5 times per week (front + side variations).");
+        lines.push("- Mix longer holds with shorter, higher-effort sets (e.g., 3 x 30–45 seconds).");
+        lines.push("- Add core work like dead bugs, bird dogs, and glute bridges.");
+      } else if (focus === "pushups") {
+        lines.push("- Do push-ups 3–4 times per week with good form.");
+        lines.push("- Use sets you can repeat (e.g., 5 sets of 10) and gradually add reps.");
+        lines.push("- Mix in incline push-ups or band-assisted push-ups if needed.");
+      } else {
+        lines.push("- Balance cardio, strength, and mobility 3–5 days per week.");
+        lines.push("- Focus on consistency and sustainable effort, not “cramming” right before test day.");
+        lines.push("- Get enough sleep, hydrate, and fuel properly leading into PFA.");
+      }
+
+      lines.push("");
+      lines.push("Always coordinate with your CFL and follow the latest PFA policy and NAVADMINs.");
+
+      out.textContent = lines.join("\n");
+    }
+
+    /* ---------- IMR EXPLAINER ---------- */
+    function showImrInfo() {
+      const area = document.getElementById("imrArea").value;
+      const out = document.getElementById("imrOutput");
+      let text = "";
+
+      if (area === "dental") {
+        text += "Dental IMR:\n";
+        text += "- Green: Dental Class 1 or 2, no issues affecting deployment.\n";
+        text += "- Red: Dental Class 3 or 4 – you usually need an updated dental exam.\n\n";
+        text += "Next steps:\n";
+        text += "- Contact your NOSC or unit medical to schedule dental.\n";
+        text += "- Ask which providers are authorized and what paperwork you need to bring back.";
+      } else if (area === "immunizations") {
+        text += "Immunizations IMR:\n";
+        text += "- Red/Amber usually means a vaccine is overdue or expiring soon.\n\n";
+        text += "Next steps:\n";
+        text += "- Review your shot record with medical.\n";
+        text += "- Get updated vaccines as directed (e.g., flu, Tdap, COVID, etc.).";
+      } else if (area === "pha") {
+        text += "PHA (Periodic Health Assessment):\n";
+        text += "- Required regularly to stay deployable.\n\n";
+        text += "Next steps:\n";
+        text += "- Complete the online PHA questionnaire (as directed by medical).\n";
+        text += "- Schedule the follow-on phone or in-person appointment.";
+      } else if (area === "labs") {
+        text += "Labs / screenings:\n";
+        text += "- Sometimes needed based on age, risk factors, or deployment requirements.\n\n";
+        text += "Next steps:\n";
+        text += "- Follow instructions from medical for where/when to get labs done.\n";
+        text += "- Bring any civilian results if they ask for documentation.";
+      } else if (area === "deployment") {
+        text += "Deployment-limiting conditions:\n";
+        text += "- Some medical issues may temporarily or permanently limit deployment.\n\n";
+        text += "Next steps:\n";
+        text += "- Be honest with medical about your current health.\n";
+        text += "- Work with providers and your chain of command on waivers, profiles, or follow-up.";
+      } else {
+        text = "Pick an IMR area to see general guidance.";
+      }
+
+      out.textContent = text;
+    }
+
+    /* ---------- READINESS WIZARD ---------- */
+    function runWizard() {
+      const scenario = document.getElementById("wizScenario").value;
+      const out = document.getElementById("wizOutput");
+      let lines = [];
+
+      if (scenario === "drill") {
+        lines.push("Normal Drill Weekend – Things to Consider:\n");
+        lines.push("- CAC + any required PIN info.");
+        lines.push("- Uniform of the day, plus proper grooming standards.");
+        lines.push("- Notebook, pen, and any ongoing training materials.");
+        lines.push("- Any outstanding paperwork you owe admin/training/medical.");
+        lines.push("- Travel/muster instructions from your NOSC or unit.");
+      } else if (scenario === "at") {
+        lines.push("AT / ADT Orders – Things to Consider:\n");
+        lines.push("- Printed or digital copy of orders and travel itinerary.");
+        lines.push("- CAC, any base access info, contact numbers for gaining command.");
+        lines.push("- Packing list: uniforms, PT gear, required PPE, meds.");
+        lines.push("- Ensure pay, travel, and lodging details are clear before you go.");
+      } else if (scenario === "travel") {
+        lines.push("Travel with DTS – Things to Consider:\n");
+        lines.push("- Confirm DTS authorization is approved and ticketed.");
+        lines.push("- Keep all receipts for lodging, rental car, and other authorized expenses.");
+        lines.push("- Know your government travel card rules if you have one.");
+        lines.push("- Save a copy of your itinerary and emergency contact info.");
+      } else if (scenario === "medical") {
+        lines.push("Medical Screening / PHA Day – Things to Consider:\n");
+        lines.push("- Bring any civilian medical documentation they’ve requested.");
+        lines.push("- Know your list of medications and dosages.");
+        lines.push("- Be ready to discuss any recent surgeries, injuries, or conditions.");
+      } else if (scenario === "mobilization") {
+        lines.push("Pre-mobilization Screening – Things to Consider:\n");
+        lines.push("- Ensure IMR items (dental, PHA, immunizations) are green or in progress.");
+        lines.push("- Confirm family care plan, legal/financial matters, and emergency contacts.");
+        lines.push("- Bring required documents as listed in your mob instructions.");
+      } else {
+        lines.push("Pick a scenario to see a non-official suggestion list.");
+      }
+
+      out.textContent = lines.join("\n");
+    }
+
+    /* ---------- ADVANCEMENT HELPER ---------- */
+    function buildAdvancement() {
+      const rate = (document.getElementById("advRate").value || "").trim().toUpperCase();
+      const paygrade = document.getElementById("advPaygrade").value;
+      const tir = parseInt(document.getElementById("advTIR").value, 10) || 0;
+      const pmk = document.getElementById("advPmk").checked;
+      const pfa = document.getElementById("advPfa").checked;
+      const evalOk = document.getElementById("advEval").checked;
+      const reqs = document.getElementById("advReqs").checked;
+
+      const out = document.getElementById("advOutput");
+      let lines = [];
+
+      lines.push("Non-official Advancement Readiness Check\n");
+
+      let tirHint = "";
+      if (paygrade === "E3") tirHint = "Typically ~6–9 months to be in-zone for E-4 (check current policy).";
+      if (paygrade === "E4") tirHint = "Often ~12 months TIR to be in-zone for E-5 (varies by NAVADMIN).";
+      if (paygrade === "E5") tirHint = "Often ~36 months TIR to be in-zone for E-6 (varies by NAVADMIN).";
+      if (paygrade === "E6") tirHint = "Senior paygrades can be very competitive; talk with your chain of command.";
+
+      lines.push(`Rate: ${rate || "Not specified"} | Current Paygrade: ${paygrade}`);
+      lines.push(`Time in Rate: ${tir} month(s).`);
+      if (tirHint) lines.push(`TIR note: ${tirHint}`);
+      lines.push("");
+
+      let checksPassed = 0;
+      if (pmk) { lines.push("✔ PMK-EE for next paygrade appears complete."); checksPassed++; }
+      else { lines.push("• PMK-EE may not be complete – verify before exam window."); }
+
+      if (pfa) { lines.push("✔ PFA status appears in good standing."); checksPassed++; }
+      else { lines.push("• PFA status uncertain – talk with CFL or leadership."); }
+
+      if (evalOk) { lines.push("✔ Latest eval does not appear to have major issues (as you indicated)."); checksPassed++; }
+      else { lines.push("• Eval concerns may impact competitiveness – discuss with your LCPO/Chief."); }
+
+      if (reqs) { lines.push("✔ Schools/quals for your rate are mostly complete (per your input)."); checksPassed++; }
+      else { lines.push("• There may be required schools/quals outstanding – check rate roadmap / instructions."); }
+
+      lines.push("");
+
+      if (checksPassed >= 3 && tir >= 6) {
+        lines.push("Overall: On paper you look like you may be in a decent position to test/compete,");
+        lines.push("but only your admin team and current NAVADMINs can confirm official eligibility.");
+      } else {
+        lines.push("Overall: There are a few items to clean up before you’re likely competitive.");
+        lines.push("Use this as a conversation starter with your chain of command.");
+      }
+
+      lines.push("");
+      lines.push("Always verify advancement eligibility with your NOSC/admin and the current NAVADMIN.");
+
+      out.textContent = lines.join("\n");
+    }
+
+    /* ---------- POINTS ESTIMATOR ---------- */
+    function buildPoints() {
+      const drills = parseInt(document.getElementById("ptsDrills").value, 10) || 0;
+      const at = parseInt(document.getElementById("ptsAT").value, 10) || 0;
+      const otherAD = parseInt(document.getElementById("ptsOtherAD").value, 10) || 0;
+      const membership = parseInt(document.getElementById("ptsMembership").value, 10) || 0;
+
+      const drillPoints = drills;
+      const activePoints = at + otherAD;
+      const total = drillPoints + activePoints + membership;
+
+      const out = document.getElementById("pointsOutput");
+      let lines = [];
+      lines.push("Rough Points Estimate (Non-official)\n");
+      lines.push(`IDT drills: ${drills}  → approx ${drillPoints} point(s)`);
+      lines.push(`AT/ADT days: ${at}   → approx ${at} point(s)`);
+      lines.push(`Other AD days: ${otherAD} → approx ${otherAD} point(s)`);
+      lines.push(`Membership points: ${membership} point(s)`);
+      lines.push("");
+      lines.push(`Estimated total points this FY: ${total}`);
+      lines.push("");
+      lines.push("A “good year” for retirement is typically 50+ points,");
+      lines.push("but always verify with your admin/NOSC and official guidance.");
+
+      out.textContent = lines.join("\n");
+    }
+
+    /* ---------- RATE ROADMAP VIEWER ---------- */
+    function showRoadmap() {
+      const rate = document.getElementById("roadmapRate").value;
+      const out = document.getElementById("roadmapOutput");
+      let lines = [];
+
+      if (!rate) {
+        out.textContent = "Choose a rating to see a non-official, high-level suggestion list.";
+        return;
+      }
+
+      if (rate === "IT") {
+        lines.push("IT – Information Systems Technician (Very High-Level, Non-Official)\n");
+        lines.push("E-3/E-4:");
+        lines.push("- Complete basic Navy training and intro IT quals (as assigned).");
+        lines.push("- Focus on communication skills and learning your NOSC/Command networks.");
+        lines.push("- Knock out basic certifications if encouraged (e.g., CompTIA-style certs).");
+        lines.push("");
+        lines.push("E-5:");
+        lines.push("- Take ownership of a system or function (trouble tickets, networking, comms).");
+        lines.push("- Mentor junior Sailors on basic IT tasks.");
+        lines.push("- Work toward higher-level cyber/network training where possible.");
+        lines.push("");
+        lines.push("E-6 and above:");
+        lines.push("- Lead sections, manage projects, and handle planning.");
+        lines.push("- Balance technical depth with leadership, mentoring, and admin.");
+      } else if (rate === "MA") {
+        lines.push("MA – Master-at-Arms (High-Level, Non-Official)\n");
+        lines.push("E-3/E-4:");
+        lines.push("- Master basic security procedures and weapons safety.");
+        lines.push("- Support watches, access control, and patrol duties as assigned.");
+        lines.push("");
+        lines.push("E-5:");
+        lines.push("- Lead small teams, help with training new MAs.");
+        lines.push("- Maintain quals (weapons, use of force, etc.) and seek advanced schools.");
+        lines.push("");
+        lines.push("E-6 and above:");
+        lines.push("- Manage watchbills, training plans, and higher-level security programs.");
+      } else if (rate === "HM") {
+        lines.push("HM – Hospital Corpsman (High-Level, Non-Official)\n");
+        lines.push("E-3/E-4:");
+        lines.push("- Build strong clinical fundamentals and patient care habits.");
+        lines.push("- Complete required medical/clinic PQS and readiness tasks.");
+        lines.push("");
+        lines.push("E-5:");
+        lines.push("- Take lead on sick call, small teams, or sections as assigned.");
+        lines.push("- Pursue advanced skills or NECs based on your platform (fleet, MARFOR, etc.).");
+        lines.push("");
+        lines.push("E-6 and above:");
+        lines.push("- Coordinate clinics/sections, training, and readiness for junior HMs.");
+      } else if (rate === "LS") {
+        lines.push("LS – Logistics Specialist (High-Level, Non-Official)\n");
+        lines.push("E-3/E-4:");
+        lines.push("- Learn supply systems and basic logistics workflows.");
+        lines.push("- Understand receipt, inventory, and issue procedures.");
+        lines.push("");
+        lines.push("E-5:");
+        lines.push("- Take responsibility for portions of inventory or financial tracking.");
+        lines.push("- Mentor juniors on systems and paperwork accuracy.");
+        lines.push("");
+        lines.push("E-6 and above:");
+        lines.push("- Oversee supply programs, audits, and readiness-related logistics.");
+      } else if (rate === "GM") {
+        lines.push("GM – Gunners Mate (High-Level, Non-Official)\n");
+        lines.push("E-3/E-4:");
+        lines.push("- Learn weapons maintenance, handling, and safety thoroughly.");
+        lines.push("- Support ranges, armory functions, and inspections.");
+        lines.push("");
+        lines.push("E-5:");
+        lines.push("- Lead small teams for maintenance and range operations.");
+        lines.push("- Maintain high weapons qualification standards.");
+        lines.push("");
+        lines.push("E-6 and above:");
+        lines.push("- Manage armory programs, training, and inspections.");
+      } else {
+        lines.push("General Reserve Sailor (Any Rating) – High-Level Thoughts\n");
+        lines.push("Early (E-1 to E-4):");
+        lines.push("- Learn your job, show up prepared, and ask good questions.");
+        lines.push("- Keep IMR, training, and admin up to date.");
+        lines.push("");
+        lines.push("Middle (E-5/E-6):");
+        lines.push("- Take on leadership of tasks, small teams, and training blocks.");
+        lines.push("- Help juniors understand systems like NROWS, DTS, NSIPS.");
+        lines.push("");
+        lines.push("Senior (E-7 and above):");
+        lines.push("- Shape culture, mentor others, and manage bigger programs.");
+      }
+
+      lines.push("");
+      lines.push("Always use official rate roadmaps and talk to your Chiefs and officers for detailed guidance.");
+      out.textContent = lines.join("\n");
+    }
+
+    /* ---------- EMAIL TONE POLISHER ---------- */
+    function polishEmail() {
+      const tone = document.getElementById("emailTone").value;
+      const raw = (document.getElementById("emailInput").value || "").trim();
+      const out = document.getElementById("emailOutput");
+
+      if (!raw) {
+        out.textContent = "Paste a rough email first.";
+        return;
+      }
+
+      let prefix = "";
+      if (tone === "formal") {
+        prefix = "Recommended more formal version (adjust names/ranks as needed):\n\n";
+      } else if (tone === "concise") {
+        prefix = "Recommended more concise version (remove anything that doesn't fit your situation):\n\n";
+      } else {
+        prefix = "Recommended more appreciative/respectful version:\n\n";
+      }
+
+      let polished = raw;
+
+      polished = polished.replace(/\byou guys\b/gi, "your team");
+      polished = polished.replace(/\bhey\b/gi, "Good morning/afternoon");
+      polished = polished.replace(/\bthanks\b/gi, "Thank you");
+      polished = polished.replace(/\bthanks!\b/gi, "Thank you.");
+
+      if (tone === "formal") {
+        polished = "Good morning,\n\n" + polished + "\n\nVery respectfully,\n[Your name]\n";
+      } else if (tone === "concise") {
+        polished = polished.replace(/\n{3,}/g, "\n\n");
+      } else if (tone === "appreciative") {
+        polished += "\n\nI appreciate your time and support.\n\nVery respectfully,\n[Your name]\n";
+      }
+
+      out.textContent = prefix + polished;
+    }
+
+    function copyPolishedEmail() {
+      const text = document.getElementById("emailOutput").textContent || "";
+      if (!text) {
+        alert("Polish the email first.");
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Polished email copied to clipboard.");
+      }).catch(() => {
+        alert("Unable to copy automatically. You can select and copy manually.");
+      });
+    }
+
+    /* ---------- PLAIN-LANGUAGE TRANSLATOR ---------- */
+    const TERM_MAP = {
+      "NOSC": "Navy Operational Support Center – where most Reservists drill and handle admin/medical.",
+      "NROWS": "Navy Reserve Order Writing System – used to request and manage Reserve orders.",
+      "NSIPS": "Navy Standard Integrated Personnel System – main system for Sailor personnel data.",
+      "AT": "Annual Training – usually 12–14 days of active-duty training each year.",
+      "ADT": "Active Duty for Training – additional active-duty training days beyond normal AT.",
+      "IDT": "Inactive Duty Training – drill periods (often 4 drills per weekend).",
+      "DTS": "Defense Travel System – official travel booking and voucher system.",
+      "IMR": "Individual Medical Readiness – shows whether your medical status is deployment-ready.",
+      "PHA": "Periodic Health Assessment – recurring health review required to stay deployable.",
+      "CAC": "Common Access Card – DoD ID card used for base access and logging into systems.",
+      "BBD": "Billet Based Distribution – system that matches billets (jobs) with Sailors."
+    };
+
+    function translatePlainFromSelect() {
+      const term = document.getElementById("plainTermSelect").value;
+      if (!term) return;
+      document.getElementById("plainTermInput").value = term;
+      translatePlain();
+    }
+
+    function translatePlain() {
+      const raw = (document.getElementById("plainTermInput").value || "").trim().toUpperCase();
+      const out = document.getElementById("plainOutput");
+
+      if (!raw) {
+        out.textContent = "Type or select a term first.";
+        return;
+      }
+
+      const key = raw.replace(/[^A-Z0-9]/g, "");
+      let explanation = TERM_MAP[key];
+
+      if (!explanation) {
+        explanation = "No simple explanation stored for this term yet. Ask your chain of command or admin for clarification.";
+      }
+
+      out.textContent = `${raw}: ${explanation}`;
+    }
+
+    /* ---------- SIGNATURE BUILDER ---------- */
+    function buildSignature() {
+      const name = (document.getElementById("sigName").value || "").trim();
+      const title = (document.getElementById("sigTitle").value || "").trim();
+      const cmd = (document.getElementById("sigCommand").value || "").trim();
+      const phone = (document.getElementById("sigPhone").value || "").trim();
+      const email = (document.getElementById("sigEmail").value || "").trim();
+      const extra = (document.getElementById("sigExtra").value || "").trim();
+
+      if (!name) {
+        alert("Please enter at least your name.");
+        return;
+      }
+
+      let lines = [];
+      lines.push(name);
+      if (title) lines.push(title);
+      if (cmd) lines.push(cmd);
+      if (phone) lines.push("Tel: " + phone);
+      if (email) lines.push(email);
+      if (extra) {
+        lines.push("");
+        lines.push(extra);
+      }
+
+      const output = lines.join("\n");
+      document.getElementById("sigOutput").textContent = output;
+    }
+
+    function copySignature() {
+      const text = document.getElementById("sigOutput").textContent || "";
+      if (!text) {
+        alert("Generate a signature first.");
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Signature copied to clipboard.");
+      }).catch(() => {
+        alert("Unable to copy automatically. You can select and copy manually.");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadChecklist);
+  </script>
+</body>
+</html>
