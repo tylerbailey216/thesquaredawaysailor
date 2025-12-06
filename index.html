@@ -910,11 +910,78 @@
         <label for="roadmapRate">Select rating</label>
         <select id="roadmapRate" onchange="showRoadmap()">
           <option value="">Choose a rating...</option>
-          <option value="IT">IT – Information Systems Technician</option>
-          <option value="MA">MA – Master-at-Arms</option>
+          <option value="ABE">ABE – Aviation Boatswain's Mate (Equipment)</option>
+          <option value="ABF">ABF – Aviation Boatswain's Mate (Fuels)</option>
+          <option value="ABH">ABH – Aviation Boatswain's Mate (Handling)</option>
+          <option value="AC">AC – Air Traffic Controller</option>
+          <option value="AD">AD – Aviation Machinist's Mate</option>
+          <option value="AE">AE – Aviation Electrician's Mate</option>
+          <option value="AG">AG – Aerographer's Mate</option>
+          <option value="AM">AM – Aviation Structural Mechanic</option>
+          <option value="AME">AME – Aviation Structural Mechanic (Safety Equipment)</option>
+          <option value="AO">AO – Aviation Ordnanceman</option>
+          <option value="AS">AS – Aviation Support Equipment Technician</option>
+          <option value="AT">AT – Aviation Electronics Technician</option>
+          <option value="AW">AW – Naval Aircrewman</option>
+          <option value="AWF">AWF – Naval Aircrewman (Mechanical/Flight Engineer)</option>
+          <option value="AWO">AWO – Naval Aircrewman (Operator)</option>
+          <option value="AWR">AWR – Naval Aircrewman (Helicopter Rescue)</option>
+          <option value="AWS">AWS – Naval Aircrewman (Helicopter Tactical)</option>
+          <option value="AWT">AWT – Naval Aircrewman (Tactical Coordinator)</option>
+          <option value="AZ">AZ – Aviation Maintenance Administrationman</option>
+          <option value="BM">BM – Boatswain's Mate</option>
+          <option value="BU">BU – Builder</option>
+          <option value="CE">CE – Construction Electrician</option>
+          <option value="CM">CM – Construction Mechanic</option>
+          <option value="CS">CS – Culinary Specialist</option>
+          <option value="CTI">CTI – Cryptologic Technician Interpretive</option>
+          <option value="CTM">CTM – Cryptologic Technician Maintenance</option>
+          <option value="CTN">CTN – Cryptologic Technician Networks</option>
+          <option value="CTR">CTR – Cryptologic Technician Collection</option>
+          <option value="CTT">CTT – Cryptologic Technician Technical</option>
+          <option value="DC">DC – Damage Controlman</option>
+          <option value="EA">EA – Engineering Aide</option>
+          <option value="EOD">EOD – Explosive Ordnance Disposal Technician</option>
+          <option value="EM">EM – Electrician's Mate</option>
+          <option value="EN">EN – Engineman</option>
+          <option value="EO">EO – Equipment Operator</option>
+          <option value="ET">ET – Electronics Technician</option>
+          <option value="FC">FC – Fire Controlman</option>
+          <option value="FT">FT – Fire Control Technician (Submarine)</option>
+          <option value="GSE">GSE – Gas Turbine System Technician (Electrical)</option>
+          <option value="GSM">GSM – Gas Turbine System Technician (Mechanical)</option>
+          <option value="GM">GM – Gunner's Mate</option>
           <option value="HM">HM – Hospital Corpsman</option>
+          <option value="HT">HT – Hull Maintenance Technician</option>
+          <option value="IC">IC – Interior Communications Electrician</option>
+          <option value="IS">IS – Intelligence Specialist</option>
+          <option value="IT">IT – Information Systems Technician</option>
+          <option value="LN">LN – Legalman</option>
           <option value="LS">LS – Logistics Specialist</option>
-          <option value="GM">GM – Gunners Mate</option>
+          <option value="MA">MA – Master-at-Arms</option>
+          <option value="MC">MC – Mass Communication Specialist</option>
+          <option value="MM">MM – Machinist's Mate</option>
+          <option value="MMN">MMN – Machinist's Mate (Nuclear)</option>
+          <option value="MN">MN – Mineman</option>
+          <option value="MR">MR – Machinery Repairman</option>
+          <option value="MT">MT – Missile Technician</option>
+          <option value="MU">MU – Musician</option>
+          <option value="NC">NC – Navy Counselor</option>
+          <option value="ND">ND – Navy Diver</option>
+          <option value="OS">OS – Operations Specialist</option>
+          <option value="PR">PR – Aircrew Survival Equipmentman</option>
+          <option value="PS">PS – Personnel Specialist</option>
+          <option value="QM">QM – Quartermaster</option>
+          <option value="RP">RP – Religious Program Specialist</option>
+          <option value="RS">RS – Retail Services Specialist</option>
+          <option value="SB">SB – Special Warfare Boat Operator</option>
+          <option value="SH">SH – Ship's Serviceman</option>
+          <option value="SO">SO – Special Warfare Operator</option>
+          <option value="STG">STG – Sonar Technician (Surface)</option>
+          <option value="STS">STS – Sonar Technician (Submarine)</option>
+          <option value="SW">SW – Steelworker</option>
+          <option value="UT">UT – Utilitiesman</option>
+          <option value="YN">YN – Yeoman</option>
           <option value="GEN">General Reserve Sailor</option>
         </select>
 
@@ -1792,10 +1859,87 @@
     }
 
     /* ---------- RATE ROADMAP VIEWER ---------- */
+    const RATE_NAME_MAP = {
+      "ABE": "Aviation Boatswain's Mate (Equipment)",
+      "ABF": "Aviation Boatswain's Mate (Fuels)",
+      "ABH": "Aviation Boatswain's Mate (Handling)",
+      "AC": "Air Traffic Controller",
+      "AD": "Aviation Machinist's Mate",
+      "AE": "Aviation Electrician's Mate",
+      "AG": "Aerographer's Mate",
+      "AM": "Aviation Structural Mechanic",
+      "AME": "Aviation Structural Mechanic (Safety Equipment)",
+      "AO": "Aviation Ordnanceman",
+      "AS": "Aviation Support Equipment Technician",
+      "AT": "Aviation Electronics Technician",
+      "AW": "Naval Aircrewman",
+      "AWF": "Naval Aircrewman (Mechanical/Flight Engineer)",
+      "AWO": "Naval Aircrewman (Operator)",
+      "AWR": "Naval Aircrewman (Helicopter Rescue)",
+      "AWS": "Naval Aircrewman (Helicopter Tactical)",
+      "AWT": "Naval Aircrewman (Tactical Coordinator)",
+      "AZ": "Aviation Maintenance Administrationman",
+      "BM": "Boatswain's Mate",
+      "BU": "Builder",
+      "CE": "Construction Electrician",
+      "CM": "Construction Mechanic",
+      "CS": "Culinary Specialist",
+      "CTI": "Cryptologic Technician Interpretive",
+      "CTM": "Cryptologic Technician Maintenance",
+      "CTN": "Cryptologic Technician Networks",
+      "CTR": "Cryptologic Technician Collection",
+      "CTT": "Cryptologic Technician Technical",
+      "DC": "Damage Controlman",
+      "EA": "Engineering Aide",
+      "EOD": "Explosive Ordnance Disposal Technician",
+      "EM": "Electrician's Mate",
+      "EN": "Engineman",
+      "EO": "Equipment Operator",
+      "ET": "Electronics Technician",
+      "FC": "Fire Controlman",
+      "FT": "Fire Control Technician (Submarine)",
+      "GSE": "Gas Turbine System Technician (Electrical)",
+      "GSM": "Gas Turbine System Technician (Mechanical)",
+      "GM": "Gunner's Mate",
+      "HM": "Hospital Corpsman",
+      "HT": "Hull Maintenance Technician",
+      "IC": "Interior Communications Electrician",
+      "IS": "Intelligence Specialist",
+      "IT": "Information Systems Technician",
+      "LN": "Legalman",
+      "LS": "Logistics Specialist",
+      "MA": "Master-at-Arms",
+      "MC": "Mass Communication Specialist",
+      "MM": "Machinist's Mate",
+      "MMN": "Machinist's Mate (Nuclear)",
+      "MN": "Mineman",
+      "MR": "Machinery Repairman",
+      "MT": "Missile Technician",
+      "MU": "Musician",
+      "NC": "Navy Counselor",
+      "ND": "Navy Diver",
+      "OS": "Operations Specialist",
+      "PR": "Aircrew Survival Equipmentman",
+      "PS": "Personnel Specialist",
+      "QM": "Quartermaster",
+      "RP": "Religious Program Specialist",
+      "RS": "Retail Services Specialist",
+      "SB": "Special Warfare Boat Operator",
+      "SH": "Ship's Serviceman",
+      "SO": "Special Warfare Operator",
+      "STG": "Sonar Technician (Surface)",
+      "STS": "Sonar Technician (Submarine)",
+      "SW": "Steelworker",
+      "UT": "Utilitiesman",
+      "YN": "Yeoman",
+      "GEN": "General Reserve Sailor"
+    };
+
     function showRoadmap() {
       const rate = document.getElementById("roadmapRate").value;
       const out = document.getElementById("roadmapOutput");
       let lines = [];
+      const rateLabel = RATE_NAME_MAP[rate] || rate;
 
       if (!rate) {
         out.textContent = "Choose a rating to see a non-official, high-level suggestion list.";
@@ -1867,6 +2011,18 @@
         lines.push("- Manage armory programs, training, and inspections.");
       } else {
         lines.push("General Reserve Sailor (Any Rating) – High-Level Thoughts\n");
+        lines.push("Early (E-1 to E-4):");
+        lines.push("- Learn your job, show up prepared, and ask good questions.");
+        lines.push("- Keep IMR, training, and admin up to date.");
+        lines.push("");
+        lines.push("Middle (E-5/E-6):");
+        lines.push("- Take on leadership of tasks, small teams, and training blocks.");
+        lines.push("- Help juniors understand systems like NROWS, DTS, NSIPS.");
+        lines.push("");
+        lines.push("Senior (E-7 and above):");
+        lines.push("- Shape culture, mentor others, and manage bigger programs.");
+      } else {
+        lines.push(`${rateLabel || "General Reserve Sailor"} – High-Level Thoughts\n`);
         lines.push("Early (E-1 to E-4):");
         lines.push("- Learn your job, show up prepared, and ask good questions.");
         lines.push("- Keep IMR, training, and admin up to date.");
