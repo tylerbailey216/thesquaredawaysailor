@@ -36,6 +36,18 @@
       color: #7fb8ff;
       font-weight: 700;
     }
+    .site-logo {
+      margin: 0 auto 12px;
+      padding: 0;
+    }
+    .site-logo img {
+      display: block;
+      margin: 0 auto;
+      max-width: 420px;
+      width: 90%;
+      height: auto;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45));
+    }
     .tagline {
       color: #b6c3d9;
       font-size: 1rem;
@@ -359,7 +371,9 @@
 <body>
   <header class="site-header">
     <div class="wrap">
-      <h1>The Squared Away Sailor</h1>
+      <h1 class="site-logo">
+        <img src="thesquaredawaysailor.png" alt="The Squared Away Sailor">
+      </h1>
       <p class="tagline">
         A secure helper hub for Sailors using personal devices.<br>
         Not an official DoD or U.S. Navy website.
