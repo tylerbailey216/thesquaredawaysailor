@@ -342,6 +342,59 @@
       font-size: 0.85rem;
       color: #b7c9e8;
     }
+    /* Ribbon rack builder */
+    .rack-builder {
+      display: grid;
+      gap: 12px;
+    }
+    .rack-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .rack-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #0f1728;
+      border: 1px solid #1f304a;
+      color: #d7e4ff;
+      font-size: 0.9rem;
+    }
+    .rack-badge button {
+      padding: 4px 6px;
+      font-size: 0.8rem;
+      margin: 0;
+    }
+    .rack-canvas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      padding: 10px;
+      background: #0d1525;
+      border: 1px solid #22324b;
+      border-radius: 10px;
+    }
+    .rack-item {
+      background: #0f1c31;
+      border: 1px solid #1f304a;
+      border-radius: 8px;
+      padding: 6px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .rack-item svg {
+      width: 100%;
+      height: 30px;
+      display: block;
+      border-radius: 4px;
+    }
+    .rack-item small {
+      color: #b7c9e8;
+    }
     .info-box {
       margin-top: 14px;
       padding: 12px 14px;
@@ -538,6 +591,12 @@
           <p>Guided questions that output a ready-to-paste request template or email body.</p>
           <button onclick="showPanel('req1306-panel')">Open Tool</button>
         </article>
+
+        <article class="tool-card">
+          <h3>Ribbon Rack Builder</h3>
+          <p>Build a simple ribbon rack using on-page SVGs. Runs fully in your browser.</p>
+          <button onclick="showPanel('rack-panel')">Open Tool</button>
+        </article>
       </div>
 
       <!-- Text Cleaner Panel -->
@@ -698,6 +757,31 @@
         </div>
 
         <div id="req1306Output" class="tool-panel-output"></div>
+      </div>
+
+      <!-- Ribbon Rack Builder Panel -->
+      <div id="rack-panel" class="tool-panel" style="display:none;">
+        <h3>Ribbon Rack Builder (client-side)</h3>
+        <p class="tiny-note">
+          Builds ribbons as SVGs in your browser. No assets are fetched or uploaded. Basic set included; add more later by extending the data list.
+        </p>
+
+        <div class="rack-builder">
+          <div>
+            <label for="rackSelect">Choose a ribbon</label>
+            <select id="rackSelect">
+              <option value="">Pick a ribbon...</option>
+            </select>
+          </div>
+          <div class="rack-row">
+            <button class="btn" onclick="addRibbon()">Add to rack</button>
+            <button class="btn secondary" onclick="clearRack()">Clear rack</button>
+          </div>
+          <div class="rack-row">
+            <div class="rack-canvas" id="rackCanvas"></div>
+          </div>
+          <p class="tiny-note">Tip: Arrange ribbons in precedence order. Use Move Up/Down to reorder.</p>
+        </div>
       </div>
     </section>
 
@@ -1195,7 +1279,8 @@
         "roadmap-panel",
         "emailtone-panel",
         "plainlang-panel",
-        "sig-panel"
+        "sig-panel",
+        "rack-panel"
       ];
       panels.forEach(pid => {
         const el = document.getElementById(pid);
@@ -2029,6 +2114,116 @@
       out.textContent = lines.join("\n");
     }
 
+    /* ---------- RIBBON RACK BUILDER ---------- */
+    const RIBBONS = [
+      { code: "NDR", name: "National Defense Service Ribbon", stripes: [
+        { color: "#C8102E", width: 20 }, { color: "#F2C100", width: 10 }, { color: "#00205B", width: 10 }, { color: "#F2C100", width: 10 },
+        { color: "#C8102E", width: 20 }, { color: "#F2C100", width: 10 }, { color: "#00205B", width: 10 }, { color: "#F2C100", width: 10 }
+      ]},
+      { code: "GWOTSM", name: "Global War on Terrorism Service", stripes: [
+        { color: "#0B1F54", width: 10 }, { color: "#C8102E", width: 10 }, { color: "#F2C100", width: 10 }, { color: "#0B1F54", width: 40 },
+        { color: "#F2C100", width: 10 }, { color: "#C8102E", width: 10 }, { color: "#0B1F54", width: 10 }
+      ]},
+      { code: "SSDR", name: "Sea Service Deployment Ribbon", stripes: [
+        { color: "#101820", width: 20 }, { color: "#FFD100", width: 10 }, { color: "#0067A5", width: 40 }, { color: "#FFD100", width: 10 }, { color: "#101820", width: 20 }
+      ]},
+      { code: "OSR", name: "Navy Overseas Service", stripes: [
+        { color: "#1C1D1A", width: 20 }, { color: "#FFD100", width: 10 }, { color: "#00539B", width: 40 }, { color: "#FFD100", width: 10 }, { color: "#1C1D1A", width: 20 }
+      ]},
+      { code: "NAM", name: "Navy and Marine Corps Achievement", stripes: [
+        { color: "#006747", width: 100 }
+      ]},
+      { code: "NCM", name: "Navy and Marine Corps Commendation", stripes: [
+        { color: "#004B8D", width: 100 }
+      ]},
+      { code: "MCGCM", name: "Marine Corps Good Conduct", stripes: [
+        { color: "#872434", width: 40 }, { color: "#FFFFFF", width: 10 }, { color: "#872434", width: 40 }, { color: "#FFFFFF", width: 10 }
+      ]},
+      { code: "NGCM", name: "Navy Good Conduct", stripes: [
+        { color: "#BA0C2F", width: 40 }, { color: "#FFFFFF", width: 10 }, { color: "#BA0C2F", width: 40 }, { color: "#FFFFFF", width: 10 }
+      ]},
+      { code: "PDR", name: "Pistol Marksmanship Ribbon", stripes: [
+        { color: "#012169", width: 100 }
+      ]},
+      { code: "RDR", name: "Rifle Marksmanship Ribbon", stripes: [
+        { color: "#003057", width: 100 }
+      ]},
+      { code: "GEN", name: "Placeholder", stripes: [
+        { color: "#2d3748", width: 100 }
+      ]}
+    ];
+
+    let rack = [];
+
+    function renderRibbonSvg(stripes) {
+      const total = stripes.reduce((sum, s) => sum + s.width, 0) || 1;
+      let x = 0;
+      const parts = [];
+      stripes.forEach(s => {
+        const w = (s.width / total) * 120;
+        parts.push(`<rect x="${x}" y="0" width="${w}" height="28" fill="${s.color}"></rect>`);
+        x += w;
+      });
+      return `<svg viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ribbon">${parts.join("")}</svg>`;
+    }
+
+    function refreshRack() {
+      const canvas = document.getElementById("rackCanvas");
+      if (!canvas) return;
+      canvas.innerHTML = "";
+      rack.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "rack-item";
+        div.innerHTML = `
+          ${renderRibbonSvg(item.stripes)}
+          <small>${item.name}</small>
+          <div class="rack-row" style="justify-content:center; margin-top:6px;">
+            <button class="btn secondary" onclick="moveRibbon(${idx}, -1)">Up</button>
+            <button class="btn secondary" onclick="moveRibbon(${idx}, 1)">Down</button>
+            <button class="btn secondary" onclick="removeRibbon(${idx})">Remove</button>
+          </div>
+        `;
+        canvas.appendChild(div);
+      });
+    }
+
+    function populateRibbonSelect() {
+      const sel = document.getElementById("rackSelect");
+      if (!sel) return;
+      RIBBONS.forEach(r => {
+        const opt = document.createElement("option");
+        opt.value = r.code;
+        opt.textContent = r.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    function addRibbon() {
+      const sel = document.getElementById("rackSelect");
+      const code = sel?.value || "";
+      const rib = RIBBONS.find(r => r.code === code);
+      if (!rib) return;
+      rack.push(rib);
+      refreshRack();
+    }
+
+    function removeRibbon(idx) {
+      rack.splice(idx, 1);
+      refreshRack();
+    }
+
+    function moveRibbon(idx, delta) {
+      const target = idx + delta;
+      if (target < 0 || target >= rack.length) return;
+      [rack[idx], rack[target]] = [rack[target], rack[idx]];
+      refreshRack();
+    }
+
+    function clearRack() {
+      rack = [];
+      refreshRack();
+    }
+
     /* ---------- EMAIL TONE POLISHER ---------- */
     function polishEmail() {
       const tone = document.getElementById("emailTone").value;
@@ -2163,7 +2358,11 @@
       });
     }
 
-    document.addEventListener("DOMContentLoaded", loadChecklist);
+    document.addEventListener("DOMContentLoaded", () => {
+      loadChecklist();
+      populateRibbonSelect();
+      refreshRack();
+    });
   </script>
 </body>
 </html>
