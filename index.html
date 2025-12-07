@@ -342,66 +342,108 @@
       font-size: 0.85rem;
       color: #b7c9e8;
     }
-    /* Ribbon rack builder */
-    .rack-builder {
+    /* Navy ribbon rack builder (beta) */
+    .ribbon-list {
+      margin-top: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 8px;
+      border-radius: 10px;
+      background: #050a14;
+      border: 1px solid #1b2942;
       display: grid;
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px;
     }
-    .rack-row {
+
+    .ribbon-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #0f1728;
+      border: 1px solid #223556;
+      color: #d9e4ff;
+      font-size: 0.82rem;
+    }
+
+    .ribbon-pill-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ribbon-pill-title {
+      font-weight: 600;
+    }
+
+    .ribbon-pill-sub {
+      font-size: 0.75rem;
+      color: #9bb0d6;
+    }
+
+    .ribbon-pill button {
+      border: none;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: #2563eb;
+      color: #e5efff;
+      white-space: nowrap;
+    }
+
+    .ribbon-pill button:hover {
+      background: #1d4ed8;
+    }
+
+    .rack-builder-wrapper {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background: #050a14;
+      border: 1px solid #1b2942;
+    }
+
+    .rack-preview {
+      min-height: 60px;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .rack-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: #0f1728;
-      border: 1px solid #1f304a;
-      color: #d7e4ff;
-      font-size: 0.9rem;
-    }
-    .rack-badge button {
-      padding: 4px 6px;
-      font-size: 0.8rem;
-      margin: 0;
-    }
-    .rack-canvas {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      padding: 10px;
-      background: #0d1525;
-      border: 1px solid #22324b;
-      border-radius: 10px;
-    }
-    .rack-item {
-      background: #0f1c31;
-      border: 1px solid #1f304a;
-      border-radius: 8px;
-      padding: 6px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      flex: 0 0 120px;
-    }
-    .rack-item svg {
-      width: 100%;
-      height: 30px;
-      display: block;
-      border-radius: 4px;
-    }
-    .rack-item small {
-      color: #b7c9e8;
-    }
-    .rack-display {
-      display: flex;
-      flex-wrap: nowrap;
       justify-content: center;
       gap: 10px;
-      width: 100%;
+    }
+
+    .rack-item {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #dde6ff;
+    }
+
+    .ribbon-block {
+      width: 110px;
+      height: 28px;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+      margin-bottom: 4px;
+    }
+
+    .ribbon-stripe {
+      height: 100%;
+      flex: 1;
+    }
+
+    .rack-mini-controls {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .rack-mini-controls .btn {
+      padding: 2px 6px;
+      font-size: 0.7rem;
     }
     .info-box {
       margin-top: 14px;
@@ -601,8 +643,8 @@
         </article>
 
         <article class="tool-card">
-          <h3>Ribbon Rack Builder</h3>
-          <p>Build a simple ribbon rack using on-page SVGs. Runs fully in your browser.</p>
+          <h3>Navy Ribbon Rack Builder (Beta)</h3>
+          <p>Build a visual Navy ribbon rack in your browser. Nothing is stored or sent to a server.</p>
           <button onclick="showPanel('rack-panel')">Open Tool</button>
         </article>
       </div>
@@ -767,32 +809,43 @@
         <div id="req1306Output" class="tool-panel-output"></div>
       </div>
 
-      <!-- Ribbon Rack Builder Panel -->
+      <!-- Navy Ribbon Rack Builder Panel (new) -->
       <div id="rack-panel" class="tool-panel" style="display:none;">
-        <h3>Ribbon Rack Builder (client-side)</h3>
+        <h3>Navy Ribbon Rack Builder (Beta)</h3>
         <p class="tiny-note">
-          Builds ribbons as SVGs in your browser. No assets are fetched or uploaded. Basic set included; add more later by extending the data list.
+          Visual helper only – not an official source. Always verify awards and precedence with your records, MyNavy HR, and your chain of command.
         </p>
 
-        <div class="rack-builder">
-          <div>
-            <label for="rackSelect">Choose a ribbon</label>
-            <select id="rackSelect">
-              <option value="">Pick a ribbon...</option>
-            </select>
-          </div>
-          <div>
-            <label for="rackPerRow">Ribbons per row</label>
-            <input id="rackPerRow" type="number" min="1" max="5" value="3" />
-          </div>
-          <div class="rack-row">
-            <button class="btn" onclick="addRibbon()">Add to rack</button>
-            <button class="btn secondary" onclick="clearRack()">Clear rack</button>
-          </div>
-          <div class="rack-row">
-            <div class="rack-canvas" id="rackCanvas"></div>
-          </div>
-          <p class="tiny-note">Tip: Arrange ribbons in precedence order. Use Move Up/Down to reorder.</p>
+        <label for="ribbonSearch">Search ribbon name</label>
+        <input
+          id="ribbonSearch"
+          type="text"
+          placeholder="Example: Navy and Marine Corps Achievement Medal"
+          oninput="renderRibbonList()"
+        />
+
+        <div id="ribbonList" class="ribbon-list"></div>
+
+        <h4 style="margin-top:16px;">Selected Rack Preview</h4>
+        <p class="tiny-note">
+          Navy-only sample set. Ribbons are shown in simple rows; always follow current Navy guidance for official wear.
+        </p>
+
+        <div class="rack-builder-wrapper">
+          <div id="rackPreview" class="rack-preview"></div>
+        </div>
+
+        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="btn secondary" onclick="clearRack()">Clear rack</button>
+          <button class="btn secondary" onclick="copyRackList()">Copy award list</button>
+          <button class="btn" onclick="downloadRackImage()">Download PNG (Beta)</button>
+        </div>
+
+        <div class="info-box">
+          <strong>Heads up:</strong>
+          <span>
+            This is a personal helper tool, not endorsed by DoD or the Navy. Always double-check against official instructions and your chain of command.
+          </span>
         </div>
       </div>
     </section>
@@ -1272,6 +1325,9 @@
 
   <!-- PDF-lib (client-side PDF library) -->
   <script src="./pdf-lib.min.js"></script>
+
+  <!-- html2canvas for rack image downloads (client-side only) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -2126,116 +2182,246 @@
       out.textContent = lines.join("\n");
     }
 
-    /* ---------- RIBBON RACK BUILDER ---------- */
-    const RIBBONS = [
-      { code: "NDR", name: "National Defense Service Ribbon", stripes: [
-        { color: "#C8102E", width: 18 }, { color: "#F2C100", width: 9 }, { color: "#0033A0", width: 9 }, { color: "#F2C100", width: 9 },
-        { color: "#C8102E", width: 28 }, { color: "#F2C100", width: 9 }, { color: "#0033A0", width: 9 }, { color: "#F2C100", width: 9 }, { color: "#C8102E", width: 18 }
-      ]},
-      { code: "GWOTSM", name: "Global War on Terrorism Service", stripes: [
-        { color: "#2D6CC0", width: 12 }, { color: "#F2C100", width: 8 }, { color: "#000000", width: 8 }, { color: "#C8102E", width: 8 }, { color: "#FFFFFF", width: 8 },
-        { color: "#C8102E", width: 8 }, { color: "#000000", width: 8 }, { color: "#F2C100", width: 8 }, { color: "#2D6CC0", width: 32 }
-      ]},
-      { code: "SSDR", name: "Sea Service Deployment Ribbon", stripes: [
-        { color: "#00205B", width: 14 }, { color: "#FFD100", width: 6 }, { color: "#4EA1D3", width: 14 }, { color: "#C8102E", width: 12 },
-        { color: "#4EA1D3", width: 14 }, { color: "#FFD100", width: 6 }, { color: "#00205B", width: 14 }
-      ]},
-      { code: "OSR", name: "Navy Overseas Service", stripes: [
-        { color: "#000000", width: 14 }, { color: "#FFFFFF", width: 6 }, { color: "#3A75C4", width: 14 }, { color: "#C8102E", width: 12 },
-        { color: "#3A75C4", width: 14 }, { color: "#FFFFFF", width: 6 }, { color: "#000000", width: 14 }
-      ]},
-      { code: "NAM", name: "Navy and Marine Corps Achievement", stripes: [
-        { color: "#006747", width: 100 }
-      ]},
-      { code: "NCM", name: "Navy and Marine Corps Commendation", stripes: [
-        { color: "#004B8D", width: 100 }
-      ]},
-      { code: "MCGCM", name: "Marine Corps Good Conduct", stripes: [
-        { color: "#872434", width: 40 }, { color: "#FFFFFF", width: 10 }, { color: "#872434", width: 40 }, { color: "#FFFFFF", width: 10 }
-      ]},
-      { code: "NGCM", name: "Navy Good Conduct", stripes: [
-        { color: "#BA0C2F", width: 40 }, { color: "#FFFFFF", width: 10 }, { color: "#BA0C2F", width: 40 }, { color: "#FFFFFF", width: 10 }
-      ]},
-      { code: "PDR", name: "Pistol Marksmanship Ribbon", stripes: [
-        { color: "#012169", width: 100 }
-      ]},
-      { code: "RDR", name: "Rifle Marksmanship Ribbon", stripes: [
-        { color: "#003057", width: 100 }
-      ]},
-      { code: "GEN", name: "Placeholder", stripes: [
-        { color: "#2d3748", width: 100 }
-      ]}
+    // Simple Navy-only ribbon data set (visual helper, not official)
+    const NAVY_RIBBONS = [
+      {
+        id: "NDR",
+        short: "NDSM",
+        name: "National Defense Service Medal",
+        stripes: [
+          { color: "#c8102e", weight: 3 },
+          { color: "#f6d547", weight: 1 },
+          { color: "#0033a0", weight: 1 },
+          { color: "#f6d547", weight: 1 },
+          { color: "#c8102e", weight: 3 }
+        ]
+      },
+      {
+        id: "GWOTSM",
+        short: "GWOTSM",
+        name: "Global War on Terrorism Service Medal",
+        stripes: [
+          { color: "#2d6cc0", weight: 2 },
+          { color: "#f6d547", weight: 1 },
+          { color: "#000000", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#000000", weight: 1 },
+          { color: "#f6d547", weight: 1 },
+          { color: "#2d6cc0", weight: 2 }
+        ]
+      },
+      {
+        id: "SSDR",
+        short: "SSDR",
+        name: "Sea Service Deployment Ribbon",
+        stripes: [
+          { color: "#00205b", weight: 2 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#4ea1d3", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#4ea1d3", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#00205b", weight: 2 }
+        ]
+      },
+      {
+        id: "OSR",
+        short: "OSR",
+        name: "Navy Overseas Service Ribbon",
+        stripes: [
+          { color: "#000000", weight: 2 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#3a75c4", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#3a75c4", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#000000", weight: 2 }
+        ]
+      },
+      {
+        id: "NAM",
+        short: "NAM",
+        name: "Navy and Marine Corps Achievement Medal",
+        stripes: [
+          { color: "#006747", weight: 5 }
+        ]
+      },
+      {
+        id: "NCM",
+        short: "NCM",
+        name: "Navy and Marine Corps Commendation Medal",
+        stripes: [
+          { color: "#004b8d", weight: 5 }
+        ]
+      },
+      {
+        id: "NGCM",
+        short: "NGCM",
+        name: "Navy Good Conduct Medal",
+        stripes: [
+          { color: "#ba0c2f", weight: 3 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#ba0c2f", weight: 2 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#ba0c2f", weight: 3 }
+        ]
+      }
+      // You can extend this list later with more ribbons
     ];
 
-    let rack = [];
+    let selectedRibbonIds = [];
 
-    function renderRibbonSvg(stripes) {
-      const total = stripes.reduce((sum, s) => sum + s.width, 0) || 1;
-      let x = 0;
-      const parts = [];
-      stripes.forEach(s => {
-        const w = (s.width / total) * 120;
-        parts.push(`<rect x="${x}" y="0" width="${w}" height="28" fill="${s.color}"></rect>`);
-        x += w;
-      });
-      return `<svg viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ribbon">${parts.join("")}</svg>`;
+    function getRack() {
+      return selectedRibbonIds
+        .map(id => NAVY_RIBBONS.find(r => r.id === id))
+        .filter(Boolean);
     }
 
-    function refreshRack() {
-      const canvas = document.getElementById("rackCanvas");
-      if (!canvas) return;
-      canvas.innerHTML = "";
-      rack.forEach((item, idx) => {
-        const div = document.createElement("div");
-        div.className = "rack-item";
-        div.innerHTML = `
-          ${renderRibbonSvg(item.stripes)}
-          <small>${item.name}</small>
-          <div class="rack-row" style="justify-content:center; margin-top:6px;">
-            <button class="btn secondary" onclick="moveRibbon(${idx}, -1)">Up</button>
-            <button class="btn secondary" onclick="moveRibbon(${idx}, 1)">Down</button>
-            <button class="btn secondary" onclick="removeRibbon(${idx})">Remove</button>
+    function renderRibbonList() {
+      const list = document.getElementById("ribbonList");
+      const searchInput = document.getElementById("ribbonSearch");
+      if (!list) return;
+
+      const q = (searchInput?.value || "").toLowerCase();
+      let items = NAVY_RIBBONS;
+
+      if (q) {
+        items = NAVY_RIBBONS.filter(r =>
+          r.name.toLowerCase().includes(q) ||
+          (r.short && r.short.toLowerCase().includes(q))
+        );
+      }
+
+      list.innerHTML = "";
+      if (!items.length) {
+        list.innerHTML = `<p class="tiny-note">No ribbons match that search yet.</p>`;
+        return;
+      }
+
+      items.forEach(r => {
+        const card = document.createElement("div");
+        card.className = "ribbon-pill";
+        card.innerHTML = `
+          <div class="ribbon-pill-main">
+            <span class="ribbon-pill-title">${r.name}</span>
+            <span class="ribbon-pill-sub">${r.short || ""}</span>
+          </div>
+          <button type="button" onclick="addRibbonToRack('${r.id}')">Add</button>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function renderRackPreview() {
+      const container = document.getElementById("rackPreview");
+      if (!container) return;
+
+      const rack = getRack();
+      if (!rack.length) {
+        container.innerHTML = `<p class="tiny-note">No ribbons selected yet. Use “Add” to build your rack.</p>`;
+        return;
+      }
+
+      container.innerHTML = "";
+
+      rack.forEach((r, idx) => {
+        const card = document.createElement("div");
+        card.className = "rack-item";
+
+        const stripesHtml = (r.stripes || [{ color: "#2d3748", weight: 1 }])
+          .map(s => `<div class="ribbon-stripe" style="background:${s.color};flex:${s.weight};"></div>`)
+          .join("");
+
+        card.innerHTML = `
+          <div class="ribbon-block">
+            ${stripesHtml}
+          </div>
+          <div>${r.short || r.name}</div>
+          <div class="rack-mini-controls">
+            <button class="btn secondary" onclick="moveRibbonInRack(${idx}, -1)">Up</button>
+            <button class="btn secondary" onclick="moveRibbonInRack(${idx}, 1)">Down</button>
+            <button class="btn secondary" onclick="removeRibbonFromRack(${idx})">Remove</button>
           </div>
         `;
-        canvas.appendChild(div);
+        container.appendChild(card);
       });
     }
 
-    function populateRibbonSelect() {
-      const sel = document.getElementById("rackSelect");
-      if (!sel) return;
-      RIBBONS.forEach(r => {
-        const opt = document.createElement("option");
-        opt.value = r.code;
-        opt.textContent = r.name;
-        sel.appendChild(opt);
-      });
+    function addRibbonToRack(id) {
+      selectedRibbonIds.push(id);
+      renderRackPreview();
     }
 
-    function addRibbon() {
-      const sel = document.getElementById("rackSelect");
-      const code = sel?.value || "";
-      const rib = RIBBONS.find(r => r.code === code);
-      if (!rib) return;
-      rack.push(rib);
-      refreshRack();
+    function moveRibbonInRack(idx, dir) {
+      const newIndex = idx + dir;
+      if (newIndex < 0 || newIndex >= selectedRibbonIds.length) return;
+
+      const arr = selectedRibbonIds;
+      const [item] = arr.splice(idx, 1);
+      arr.splice(newIndex, 0, item);
+      renderRackPreview();
     }
 
-    function removeRibbon(idx) {
-      rack.splice(idx, 1);
-      refreshRack();
-    }
-
-    function moveRibbon(idx, delta) {
-      const target = idx + delta;
-      if (target < 0 || target >= rack.length) return;
-      [rack[idx], rack[target]] = [rack[target], rack[idx]];
-      refreshRack();
+    function removeRibbonFromRack(idx) {
+      selectedRibbonIds.splice(idx, 1);
+      renderRackPreview();
     }
 
     function clearRack() {
-      rack = [];
-      refreshRack();
+      selectedRibbonIds = [];
+      renderRackPreview();
+    }
+
+    function copyRackList() {
+      const rack = getRack();
+      if (!rack.length) {
+        alert("Build a rack first.");
+        return;
+      }
+
+      const lines = rack.map((r, idx) =>
+        `${idx + 1}. ${r.short || r.id} – ${r.name}`
+      );
+      const text = lines.join("\n");
+
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(text).then(
+          () => alert("Rack list copied to clipboard."),
+          () => alert("Could not copy automatically. You can select and copy from the preview.")
+        );
+      } else {
+        alert("Your browser does not support automatic copying. You can select and copy from the preview.");
+      }
+    }
+
+    async function downloadRackImage() {
+      const container = document.getElementById("rackPreview");
+      if (!container) return;
+
+      const rack = getRack();
+      if (!rack.length) {
+        alert("Build a rack before downloading.");
+        return;
+      }
+
+      if (typeof html2canvas === "undefined") {
+        alert("Screenshot library not loaded. Check your connection and try again.");
+        return;
+      }
+
+      try {
+        const canvas = await html2canvas(container, {
+          backgroundColor: null,
+          scale: 2
+        });
+        const link = document.createElement("a");
+        link.download = "squared_away_rack.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      } catch (e) {
+        console.error(e);
+        alert("Sorry, something went wrong generating the image.");
+      }
     }
 
     /* ---------- EMAIL TONE POLISHER ---------- */
@@ -2374,8 +2560,8 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       loadChecklist();
-      populateRibbonSelect();
-      refreshRack();
+      renderRibbonList();
+      renderRackPreview();
     });
   </script>
 </body>
