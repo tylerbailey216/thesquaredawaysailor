@@ -2201,34 +2201,328 @@
       out.textContent = lines.join("\n");
     }
 
-    // Simple Navy-only ribbon data set (visual helper, not official)
+    // Navy ribbons in (approximate) order of precedence.
+    // Colors are approximate digital representations for educational use only.
     const NAVY_RIBBONS = [
+      // 1. Top-level decorations (sampled)
       {
-        id: "NDR",
+        id: "MOH",
+        short: "MoH",
+        name: "Medal of Honor (Navy/Marine Corps)",
+        stripes: [{ color: "#355e95", weight: 5 }]
+      },
+      {
+        id: "NC",
+        short: "NC",
+        name: "Navy Cross",
+        stripes: [{ color: "#00205b", weight: 5 }]
+      },
+      {
+        id: "DDSMS",
+        short: "Def DSM",
+        name: "Defense Distinguished Service Medal",
+        stripes: [
+          { color: "#800020", weight: 3 },
+          { color: "#f5f5f5", weight: 1 },
+          { color: "#800020", weight: 1 },
+          { color: "#f5f5f5", weight: 1 },
+          { color: "#800020", weight: 3 }
+        ]
+      },
+      {
+        id: "NDSM",
         short: "NDSM",
         name: "National Defense Service Medal",
         stripes: [
-          { color: "#c8102e", weight: 3 },
-          { color: "#f6d547", weight: 1 },
+          { color: "#c8102e", weight: 2 },
+          { color: "#ffffff", weight: 1 },
           { color: "#0033a0", weight: 1 },
-          { color: "#f6d547", weight: 1 },
-          { color: "#c8102e", weight: 3 }
+          { color: "#ffffff", weight: 1 },
+          { color: "#ffd100", weight: 4 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#0033a0", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#c8102e", weight: 2 }
+        ]
+      },
+
+      // 2. Heroism / valor / service decorations (sample set)
+      {
+        id: "SS",
+        short: "SS",
+        name: "Silver Star",
+        stripes: [{ color: "#c0c0c0", weight: 5 }]
+      },
+      {
+        id: "LOM",
+        short: "LoM",
+        name: "Legion of Merit",
+        stripes: [{ color: "#800020", weight: 5 }]
+      },
+      {
+        id: "DFC",
+        short: "DFC",
+        name: "Distinguished Flying Cross",
+        stripes: [
+          { color: "#00205b", weight: 2 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#00205b", weight: 2 }
+        ]
+      },
+      {
+        id: "NMC_MEDAL",
+        short: "NMC Medal",
+        name: "Navy and Marine Corps Medal",
+        stripes: [
+          { color: "#8a1538", weight: 3 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#8a1538", weight: 2 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#8a1538", weight: 3 }
+        ]
+      },
+      {
+        id: "BSM",
+        short: "BSM",
+        name: "Bronze Star Medal",
+        stripes: [{ color: "#a15c32", weight: 5 }]
+      },
+      {
+        id: "PH",
+        short: "PH",
+        name: "Purple Heart",
+        stripes: [
+          { color: "#4b286d", weight: 3 },
+          { color: "#f5f5f5", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#f5f5f5", weight: 1 },
+          { color: "#4b286d", weight: 3 }
+        ]
+      },
+
+      // 3. Commendation & achievement medals
+      {
+        id: "JS_COMM",
+        short: "JSCM",
+        name: "Joint Service Commendation Medal",
+        stripes: [{ color: "#3a75c4", weight: 5 }]
+      },
+      {
+        id: "NCM",
+        short: "NCM",
+        name: "Navy and Marine Corps Commendation Medal",
+        stripes: [
+          { color: "#006747", weight: 4 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#006747", weight: 2 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#006747", weight: 4 }
+        ]
+      },
+      {
+        id: "JS_AM",
+        short: "JSAM",
+        name: "Joint Service Achievement Medal",
+        stripes: [{ color: "#4b5320", weight: 5 }]
+      },
+      {
+        id: "NAM",
+        short: "NAM",
+        name: "Navy and Marine Corps Achievement Medal",
+        stripes: [
+          { color: "#006747", weight: 3 },
+          { color: "#ff8f1a", weight: 1 },
+          { color: "#006747", weight: 2 },
+          { color: "#ff8f1a", weight: 1 },
+          { color: "#006747", weight: 3 }
+        ]
+      },
+
+      // 4. Combat, unit, and readiness ribbons
+      {
+        id: "CAR",
+        short: "CAR",
+        name: "Combat Action Ribbon",
+        stripes: [
+          { color: "#0033a0", weight: 2 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#c8102e", weight: 2 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#0033a0", weight: 2 }
+        ]
+      },
+      {
+        id: "PUC",
+        short: "PUC",
+        name: "Presidential Unit Citation (Navy)",
+        stripes: [{ color: "#0033a0", weight: 5 }]
+      },
+      {
+        id: "NUC",
+        short: "NUC",
+        name: "Navy Unit Commendation",
+        stripes: [
+          { color: "#006747", weight: 3 },
+          { color: "#0033a0", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#0033a0", weight: 1 },
+          { color: "#006747", weight: 3 }
+        ]
+      },
+      {
+        id: "MUC",
+        short: "MUC",
+        name: "Meritorious Unit Commendation",
+        stripes: [
+          { color: "#800020", weight: 3 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#800020", weight: 2 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#800020", weight: 3 }
+        ]
+      },
+      {
+        id: "NAVY_E",
+        short: "\"E\"",
+        name: "Navy \"E\" Ribbon",
+        stripes: [{ color: "#202020", weight: 5 }]
+      },
+
+      // 5. Good conduct / reserve / expeditionary
+      {
+        id: "NGCM",
+        short: "NGCM",
+        name: "Navy Good Conduct Medal",
+        stripes: [{ color: "#ba0c2f", weight: 5 }]
+      },
+      {
+        id: "NRMSM",
+        short: "NRMSM",
+        name: "Naval Reserve Meritorious Service Medal",
+        stripes: [
+          { color: "#8a1538", weight: 3 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#8a1538", weight: 2 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#8a1538", weight: 3 }
+        ]
+      },
+      {
+        id: "NEM",
+        short: "NEM",
+        name: "Navy Expeditionary Medal",
+        stripes: [
+          { color: "#ffd100", weight: 2 },
+          { color: "#0033a0", weight: 5 },
+          { color: "#ffd100", weight: 2 }
+        ]
+      },
+
+      // 6. Campaign / expeditionary / GWOT (sample set)
+      {
+        id: "AFEM",
+        short: "AFEM",
+        name: "Armed Forces Expeditionary Medal",
+        stripes: [
+          { color: "#0033a0", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#00843d", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#00843d", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#0033a0", weight: 1 }
+        ]
+      },
+      {
+        id: "VSM",
+        short: "VSM",
+        name: "Vietnam Service Medal",
+        stripes: [
+          { color: "#ffd100", weight: 2 },
+          { color: "#00843d", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#00843d", weight: 1 },
+          { color: "#ffd100", weight: 2 }
+        ]
+      },
+      {
+        id: "SWASM",
+        short: "SWASM",
+        name: "Southwest Asia Service Medal",
+        stripes: [
+          { color: "#c2b280", weight: 3 },
+          { color: "#000000", weight: 1 },
+          { color: "#ff8f1a", weight: 1 },
+          { color: "#000000", weight: 1 },
+          { color: "#c2b280", weight: 3 }
+        ]
+      },
+      {
+        id: "GWOTEM",
+        short: "GWOT-EM",
+        name: "Global War on Terrorism Expeditionary Medal",
+        stripes: [
+          { color: "#c2b280", weight: 2 },
+          { color: "#0033a0", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#0033a0", weight: 1 },
+          { color: "#c2b280", weight: 2 }
         ]
       },
       {
         id: "GWOTSM",
-        short: "GWOTSM",
+        short: "GWOT-SM",
         name: "Global War on Terrorism Service Medal",
         stripes: [
-          { color: "#2d6cc0", weight: 2 },
-          { color: "#f6d547", weight: 1 },
-          { color: "#000000", weight: 1 },
+          { color: "#0033a0", weight: 2 },
+          { color: "#ffd100", weight: 1 },
           { color: "#ffffff", weight: 1 },
-          { color: "#000000", weight: 1 },
-          { color: "#f6d547", weight: 1 },
-          { color: "#2d6cc0", weight: 2 }
+          { color: "#c8102e", weight: 1 },
+          { color: "#00843d", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#0033a0", weight: 2 }
         ]
       },
+      {
+        id: "AFGHAN",
+        short: "ACM",
+        name: "Afghanistan Campaign Medal",
+        stripes: [
+          { color: "#000000", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#00843d", weight: 1 },
+          { color: "#c2b280", weight: 3 },
+          { color: "#00843d", weight: 1 },
+          { color: "#ffd100", weight: 1 },
+          { color: "#000000", weight: 1 }
+        ]
+      },
+      {
+        id: "IRAQ",
+        short: "ICM",
+        name: "Iraq Campaign Medal",
+        stripes: [
+          { color: "#000000", weight: 1 },
+          { color: "#c2b280", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#c8102e", weight: 1 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#c2b280", weight: 1 },
+          { color: "#000000", weight: 1 }
+        ]
+      },
+
+      // 7. Service / deployment / misc Navy ribbons
       {
         id: "SSDR",
         short: "SSDR",
@@ -2246,46 +2540,63 @@
       {
         id: "OSR",
         short: "OSR",
-        name: "Navy Overseas Service Ribbon",
+        name: "Navy and Marine Corps Overseas Service Ribbon",
         stripes: [
           { color: "#000000", weight: 2 },
           { color: "#ffffff", weight: 1 },
-          { color: "#3a75c4", weight: 1 },
+          { color: "#0033a0", weight: 1 },
           { color: "#c8102e", weight: 1 },
-          { color: "#3a75c4", weight: 1 },
+          { color: "#0033a0", weight: 1 },
           { color: "#ffffff", weight: 1 },
           { color: "#000000", weight: 2 }
         ]
       },
       {
-        id: "NAM",
-        short: "NAM",
-        name: "Navy and Marine Corps Achievement Medal",
+        id: "ASR",
+        short: "Arctic",
+        name: "Navy Arctic Service Ribbon",
         stripes: [
-          { color: "#006747", weight: 5 }
+          { color: "#0033a0", weight: 2 },
+          { color: "#7fcde9", weight: 1 },
+          { color: "#ffffff", weight: 2 },
+          { color: "#7fcde9", weight: 1 },
+          { color: "#0033a0", weight: 2 }
         ]
       },
       {
-        id: "NCM",
-        short: "NCM",
-        name: "Navy and Marine Corps Commendation Medal",
+        id: "RSR",
+        short: "RSR",
+        name: "Navy Recruiting Service Ribbon",
         stripes: [
-          { color: "#004b8d", weight: 5 }
+          { color: "#c8102e", weight: 2 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#0033a0", weight: 2 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#c8102e", weight: 2 }
+        ]
+      },
+
+      // 8. Marksmanship (Navy)
+      {
+        id: "RIFLE",
+        short: "Rifle",
+        name: "Rifle Marksmanship Ribbon",
+        stripes: [
+          { color: "#0033a0", weight: 3 },
+          { color: "#ffffff", weight: 1 },
+          { color: "#0033a0", weight: 3 }
         ]
       },
       {
-        id: "NGCM",
-        short: "NGCM",
-        name: "Navy Good Conduct Medal",
+        id: "PISTOL",
+        short: "Pistol",
+        name: "Pistol Marksmanship Ribbon",
         stripes: [
-          { color: "#ba0c2f", weight: 3 },
+          { color: "#4b286d", weight: 3 },
           { color: "#ffffff", weight: 1 },
-          { color: "#ba0c2f", weight: 2 },
-          { color: "#ffffff", weight: 1 },
-          { color: "#ba0c2f", weight: 3 }
+          { color: "#4b286d", weight: 3 }
         ]
       }
-      // You can extend this list later with more ribbons
     ];
 
     let selectedRibbonIds = [];
