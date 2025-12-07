@@ -5,7 +5,7 @@
   <title>The Squared Away Sailor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="A non-official, security-first toolbox and link hub for Navy and Reserve Sailors using personal devices." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; worker-src 'self' blob:">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob: data:">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1175,7 +1175,7 @@
   </footer>
 
   <!-- PDF-lib (client-side PDF library) -->
-  <script src="pdf-lib.min.js"></script>
+  <script src="./pdf-lib.min.js"></script>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
