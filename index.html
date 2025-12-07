@@ -406,18 +406,37 @@
       border: 1px solid #1b2942;
     }
 
+    /* Rack layout: rows instead of one long line */
     .rack-preview {
       min-height: 60px;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rack-row {
+      display: flex;
+      gap: 8px;
       justify-content: center;
-      gap: 10px;
     }
 
     .rack-item {
       text-align: center;
       font-size: 0.75rem;
       color: #dde6ff;
+    }
+
+    .rack-mini-controls {
+      margin-top: 4px;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .rack-mini-controls .btn {
+      padding: 2px 6px;
+      font-size: 0.7rem;
     }
 
     .ribbon-block {
@@ -2324,27 +2343,43 @@
 
       container.innerHTML = "";
 
-      rack.forEach((r, idx) => {
-        const card = document.createElement("div");
-        card.className = "rack-item";
+      // How many ribbons per row? 3 is the common “rack width”
+      const PER_ROW = 3;
+      for (let i = 0; i < rack.length; i += PER_ROW) {
+        const row = document.createElement("div");
+        row.className = "rack-row";
 
-        const stripesHtml = (r.stripes || [{ color: "#2d3748", weight: 1 }])
-          .map(s => `<div class="ribbon-stripe" style="background:${s.color};flex:${s.weight};"></div>`)
-          .join("");
+        const slice = rack.slice(i, i + PER_ROW);
+        slice.forEach((r, idxInRow) => {
+          const globalIndex = i + idxInRow;
 
-        card.innerHTML = `
-          <div class="ribbon-block">
-            ${stripesHtml}
-          </div>
-          <div>${r.short || r.name}</div>
-          <div class="rack-mini-controls">
-            <button class="btn secondary" onclick="moveRibbonInRack(${idx}, -1)">Up</button>
-            <button class="btn secondary" onclick="moveRibbonInRack(${idx}, 1)">Down</button>
-            <button class="btn secondary" onclick="removeRibbonFromRack(${idx})">Remove</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
+          const card = document.createElement("div");
+          card.className = "rack-item";
+
+          const stripesHtml = (r.stripes || [{ color: "#2d3748", weight: 1 }])
+            .map(
+              (s) =>
+                `<div class="ribbon-stripe" style="background:${s.color};flex:${s.weight};"></div>`
+            )
+            .join("");
+
+          card.innerHTML = `
+            <div class="ribbon-block">
+              ${stripesHtml}
+            </div>
+            <div>${r.short || r.name}</div>
+            <div class="rack-mini-controls">
+              <button class="btn secondary" onclick="moveRibbonInRack(${globalIndex}, -1)">Up</button>
+              <button class="btn secondary" onclick="moveRibbonInRack(${globalIndex}, 1)">Down</button>
+              <button class="btn secondary" onclick="removeRibbonFromRack(${globalIndex})">Remove</button>
+            </div>
+          `;
+
+          row.appendChild(card);
+        });
+
+        container.appendChild(row);
+      }
     }
 
     function addRibbonToRack(id) {
